@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+var host: String? {
+    get {
+        guard let path = Bundle.main.path(forResource: "Info", ofType: "plist") else { return nil }
+        guard let dict = NSDictionary(contentsOfFile: path) as? [String : AnyObject] else { return nil }
+        
+        return dict["HOST_URL"] as? String
+    }
+}

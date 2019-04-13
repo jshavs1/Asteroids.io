@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F133025226101480097885B /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F133024226101480097885B /* SocketIO.framework */; };
+		6F133026226101480097885B /* SocketIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6F133024226101480097885B /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6F133029226101510097885B /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F133028226101510097885B /* Starscream.framework */; };
+		6F13302A226101510097885B /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6F133028226101510097885B /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6F13302D2261019D0097885B /* SocketIO.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6F13302C2261019D0097885B /* SocketIO.framework.dSYM */; };
+		6F13302F226101A60097885B /* Starscream.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6F13302E226101A60097885B /* Starscream.framework.dSYM */; };
+		6F133034226265040097885B /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133033226265040097885B /* SocketIOManager.swift */; };
+		6F133036226265E70097885B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133035226265E70097885B /* Config.swift */; };
 		6F3089EE22601D4200877AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3089ED22601D4200877AFB /* AppDelegate.swift */; };
 		6F3089F022601D4200877AFB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089EF22601D4200877AFB /* GameScene.sks */; };
 		6F3089F222601D4200877AFB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089F122601D4200877AFB /* Actions.sks */; };
@@ -17,7 +25,39 @@
 		6F3089FE22601D4400877AFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089FC22601D4400877AFB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6F133027226101480097885B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6F133026226101480097885B /* SocketIO.framework in Embed Frameworks */,
+				6F13302A226101510097885B /* Starscream.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F13302B226101730097885B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				6F13302D2261019D0097885B /* SocketIO.framework.dSYM in CopyFiles */,
+				6F13302F226101A60097885B /* Starscream.framework.dSYM in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6F133024226101480097885B /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
+		6F133028226101510097885B /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		6F13302C2261019D0097885B /* SocketIO.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SocketIO.framework.dSYM; path = Carthage/Build/iOS/SocketIO.framework.dSYM; sourceTree = "<group>"; };
+		6F13302E226101A60097885B /* Starscream.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Starscream.framework.dSYM; path = Carthage/Build/iOS/Starscream.framework.dSYM; sourceTree = "<group>"; };
+		6F133033226265040097885B /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		6F133035226265E70097885B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		6F3089EA22601D4200877AFB /* Asteroids.io.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Asteroids.io.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3089ED22601D4200877AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F3089EF22601D4200877AFB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -35,6 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F133025226101480097885B /* SocketIO.framework in Frameworks */,
+				6F133029226101510097885B /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +86,10 @@
 		6F3089E122601D4200877AFB = {
 			isa = PBXGroup;
 			children = (
+				6F13302E226101A60097885B /* Starscream.framework.dSYM */,
+				6F13302C2261019D0097885B /* SocketIO.framework.dSYM */,
+				6F133028226101510097885B /* Starscream.framework */,
+				6F133024226101480097885B /* SocketIO.framework */,
 				6F3089EC22601D4200877AFB /* Asteroids.io */,
 				6F3089EB22601D4200877AFB /* Products */,
 			);
@@ -69,6 +115,8 @@
 				6F3089FA22601D4400877AFB /* Assets.xcassets */,
 				6F3089FC22601D4400877AFB /* LaunchScreen.storyboard */,
 				6F3089FF22601D4400877AFB /* Info.plist */,
+				6F133033226265040097885B /* SocketIOManager.swift */,
+				6F133035226265E70097885B /* Config.swift */,
 			);
 			path = Asteroids.io;
 			sourceTree = "<group>";
@@ -83,6 +131,9 @@
 				6F3089E622601D4200877AFB /* Sources */,
 				6F3089E722601D4200877AFB /* Frameworks */,
 				6F3089E822601D4200877AFB /* Resources */,
+				6F133027226101480097885B /* Embed Frameworks */,
+				6F13302B226101730097885B /* CopyFiles */,
+				6F133030226102110097885B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -141,12 +192,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6F133030226102110097885B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SocketIO.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Starscream.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SocketIO.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6F3089E622601D4200877AFB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F133034226265040097885B /* SocketIOManager.swift in Sources */,
 				6F3089F422601D4200877AFB /* GameScene.swift in Sources */,
+				6F133036226265E70097885B /* Config.swift in Sources */,
 				6F3089F622601D4200877AFB /* GameViewController.swift in Sources */,
 				6F3089EE22601D4200877AFB /* AppDelegate.swift in Sources */,
 			);
@@ -174,7 +251,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6F308A0022601D4400877AFB /* Debug */ = {
+		6F308A0022601D4400877AFB /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -233,7 +310,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = Development;
 		};
 		6F308A0122601D4400877AFB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -290,11 +367,16 @@
 			};
 			name = Release;
 		};
-		6F308A0322601D4400877AFB /* Debug */ = {
+		6F308A0322601D4400877AFB /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				HOST_URL = "http://localhost:8000";
 				INFOPLIST_FILE = Asteroids.io/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -305,13 +387,18 @@
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Debug;
+			name = Development;
 		};
 		6F308A0422601D4400877AFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				HOST_URL = "https://cmsc436-asteroids-io.herokuapp.com/";
 				INFOPLIST_FILE = Asteroids.io/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -330,7 +417,7 @@
 		6F3089E522601D4200877AFB /* Build configuration list for PBXProject "Asteroids.io" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6F308A0022601D4400877AFB /* Debug */,
+				6F308A0022601D4400877AFB /* Development */,
 				6F308A0122601D4400877AFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -339,7 +426,7 @@
 		6F308A0222601D4400877AFB /* Build configuration list for PBXNativeTarget "Asteroids.io" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6F308A0322601D4400877AFB /* Debug */,
+				6F308A0322601D4400877AFB /* Development */,
 				6F308A0422601D4400877AFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
