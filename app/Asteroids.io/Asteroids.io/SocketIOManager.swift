@@ -30,8 +30,8 @@ class SocketIOManager {
         return SocketIOManager.default._socket
     }
     
-    var pingTime: Double!
-    var pongTime: Double!
+    var pingTime: Double = 0
+    var pongTime: Double = 0
     
     var onLatency: Event<Double>
     
@@ -53,7 +53,7 @@ class SocketIOManager {
         _socket.on(clientEvent: .disconnect) { (data, ack) in
             print("Socket disconnected")
         }
-        _socket.on("pong") { (data, ack) in
+        _socket.on("mypong") { (data, ack) in
             self.pong()
         }
         _socket.on("start") { (data, ack) in
@@ -83,13 +83,15 @@ class SocketIOManager {
     }
     
     func ping() {
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (_) in
-            self._socket.emit("ping")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            print("ping")
             self.pingTime = Date().timeIntervalSince1970
-        }
+            self._socket.emit("myping")
+        })
     }
     
     func pong() {
+        print("pong")
         self.pongTime = Date().timeIntervalSince1970
         onLatency.invoke(t: (pongTime - pingTime))
     }

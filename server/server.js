@@ -15,8 +15,8 @@ io.on('connect', function (socket) {
         console.log('Player '+socket.id+' has disconnected');
         RoomManager.leaveRoom(socket, socket.roomId);
     });
-    socket.on('ping', function() {
-        io.to(socket.id).emit('pong');
+    socket.on('myping', function() {
+        io.to(socket.id).emit('mypong');
     });
     socket.on('instantiate', function(details) {
         console.log('instantiate received from ' + details.owner);
