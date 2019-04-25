@@ -8,40 +8,14 @@ class GameSimulation {
         this.height = 4000;
         this.roomId = roomId;
         this.networkObjects = {};
-        this.commandQueue = [];
-        this.frame = 0;
     }
 
-    start() {
-        this.loop = setInterval(() => { this.gameLoop() }, config.deltaTime);
-    }
-
-    gameLoop() {
-        var futureCommands = this.commandQueue.filter((command) => {
-            return command.frame > this.frame;
-        });
-        var upcomingCommands = this.commandQueue.filter((command) => {
-            return command.frame <= this.frame;
-        });
-        upcomingCommands.forEach((command) => {
-            var object;
-            if (object = this.networkObjects[command.id]) {
-                object.update(this.frame, command);
-            }
-        });
-
-        this.commandQueue = futureCommands;
-
-        this.broadcastState();
-
-        this.frame++;
-    }
-
-    end() {
-        this.networkObjects = {}
-        this.commandQueue = []
-        this.frame = 0
-        clearInterval(this.loop);
+    update(command) {
+        var object;
+        if (object = this.networkObjects[command.id]) {
+            object.update(command);
+            server.io.to(this.roomId).emit('update', object.getState());
+        }
     }
 
     packageState() {

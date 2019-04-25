@@ -100,13 +100,9 @@ class GameManager {
         return GameManager.default.objects[id]
     }
     
-    static func updateObjects(frame: Int, objects: [NetworkObject]) {
-        for object in objects {
-            if (!object.isMine) {
-                if let localObj = GameManager.findObject(id: object.id) {
-                    localObj.transform = object.transform
-                }
-            }
+    static func update(object: NetworkObject){
+        if let localObj = GameManager.default.objects[object.id] {
+            localObj.transform = object.transform
         }
     }
     

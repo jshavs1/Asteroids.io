@@ -32,7 +32,7 @@ class NetworkManager {
         }
     }
     
-    static func command(c: Command) {
-        SocketIOManager.socket.emit("command", c)
+    static func update(command: Command) {
+        SocketIOManager.socket.emit("update", command)
     }
 }

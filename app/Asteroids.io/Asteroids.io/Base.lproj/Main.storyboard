@@ -33,21 +33,31 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ping" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijQ-nU-8DV">
+                                <rect key="frame" x="793" y="20" width="31" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ECx-iL-RbM" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="40" id="KnY-0O-YhJ"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="ECx-iL-RbM" secondAttribute="bottom" constant="20" id="TsL-c4-bWL"/>
+                            <constraint firstItem="ijQ-nU-8DV" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="20" id="Uvo-dw-2b5"/>
                             <constraint firstItem="ECx-iL-RbM" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="225" id="nSf-fs-hPU"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="ijQ-nU-8DV" secondAttribute="trailing" constant="28" id="ztS-zQ-Ka8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <connections>
                         <outlet property="joystick" destination="ECx-iL-RbM" id="KuK-dT-zRC"/>
+                        <outlet property="pingLabel" destination="ijQ-nU-8DV" id="pFQ-yp-6vh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="22.767857142857142" y="63.768115942028992"/>
         </scene>
     </scenes>
 </document>

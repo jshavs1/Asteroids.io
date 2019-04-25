@@ -30,10 +30,16 @@ class SocketIOManager {
         return SocketIOManager.default._socket
     }
     
+    var pingTime: Double!
+    var pongTime: Double!
+    
+    var onLatency: Event<Double>
+    
     
     init() {
         self._manager = SocketManager(socketURL: URL(string: host!)!, config: [.compress])
         self._socket = self._manager.defaultSocket
+        self.onLatency = Event<Double>()
     }
     
     func configureSocket() {
@@ -46,6 +52,9 @@ class SocketIOManager {
         }
         _socket.on(clientEvent: .disconnect) { (data, ack) in
             print("Socket disconnected")
+        }
+        _socket.on("pong") { (data, ack) in
+            self.pong()
         }
         _socket.on("start") { (data, ack) in
             var json = data[0] as! JSON
@@ -62,21 +71,26 @@ class SocketIOManager {
             print("Instantiation received")
             GameManager.instantiate(response: InstantiateResponse(json: json))
         }
-        _socket.on("state") { (data, ack) in
+        _socket.on("update") { (data, ack) in
             let json = data[0] as! JSON
+            let object = NetworkObject(json: json)
             
-            let frame = json["frame"] as! Int
-            let states = json["states"] as! [JSON]
-            let objects = states.map({ (json) -> NetworkObject in
-                return NetworkObject(json: json)
-            })
-            
-            GameManager.updateObjects(frame: frame, objects: objects)
-            
-            //print("State received")
+            GameManager.update(object: object)
         }
         
         print("Socket ready")
         _socket.connect()
+    }
+    
+    func ping() {
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (_) in
+            self._socket.emit("ping")
+            self.pingTime = Date().timeIntervalSince1970
+        }
+    }
+    
+    func pong() {
+        self.pongTime = Date().timeIntervalSince1970
+        onLatency.invoke(t: (pongTime - pingTime))
     }
 }

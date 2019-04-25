@@ -13,11 +13,14 @@ import GameplayKit
 class GameViewController: UIViewController, GameManagerDelegate {
     
     @IBOutlet weak var joystick: Joystick!
+    @IBOutlet weak var pingLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         GameManager.onUpdate += self.onUpdate
+        SocketIOManager.default.onLatency += self.onLatency
+        SocketIOManager.default.ping()
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -63,7 +66,12 @@ class GameViewController: UIViewController, GameManagerDelegate {
             let command = player.newCommand
             command.addAction(action: "x", value: x)
             command.addAction(action: "y", value: y)
-            NetworkManager.command(c: command)
+            NetworkManager.update(command: command)
         }
+    }
+    
+    func onLatency(latency: Double) {
+        self.pingLabel.text = "Ping: \(latency.rounded())"
+        SocketIOManager.default.ping()
     }
 }

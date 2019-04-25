@@ -70,7 +70,7 @@
 		6F133028226101510097885B /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		6F13302C2261019D0097885B /* SocketIO.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SocketIO.framework.dSYM; path = Carthage/Build/iOS/SocketIO.framework.dSYM; sourceTree = "<group>"; };
 		6F13302E226101A60097885B /* Starscream.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Starscream.framework.dSYM; path = Carthage/Build/iOS/Starscream.framework.dSYM; sourceTree = "<group>"; };
-		6F133033226265040097885B /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		6F133033226265040097885B /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SocketIOManager.swift; path = Asteroids.io/SocketIOManager.swift; sourceTree = SOURCE_ROOT; };
 		6F133035226265E70097885B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		6F133037226F67780097885B /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Asteroids.io/Command.swift; sourceTree = SOURCE_ROOT; };
 		6F13303B226F6F060097885B /* Spaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceship.swift; sourceTree = "<group>"; };
@@ -194,6 +194,7 @@
 		6F3089EC22601D4200877AFB /* Asteroids.io */ = {
 			isa = PBXGroup;
 			children = (
+				6F53E8B9227230BD002F92A1 /* SocketIO */,
 				6F53E8B02270CCC6002F92A1 /* Extensions */,
 				6F133050226F9CC00097885B /* Network */,
 				6F13304F226F9CA50097885B /* Game */,
@@ -211,7 +212,6 @@
 				6F3089FA22601D4400877AFB /* Assets.xcassets */,
 				6F3089FC22601D4400877AFB /* LaunchScreen.storyboard */,
 				6F3089FF22601D4400877AFB /* Info.plist */,
-				6F133033226265040097885B /* SocketIOManager.swift */,
 				6F133035226265E70097885B /* Config.swift */,
 				6F53E8AE2270B483002F92A1 /* Joystick.swift */,
 				6F53E8B722711240002F92A1 /* Event.swift */,
@@ -225,6 +225,14 @@
 				6F53E8B12270CCF3002F92A1 /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6F53E8B9227230BD002F92A1 /* SocketIO */ = {
+			isa = PBXGroup;
+			children = (
+				6F133033226265040097885B /* SocketIOManager.swift */,
+			);
+			path = SocketIO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -491,7 +499,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5PDDE5JDL6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -504,6 +514,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "cmsc436.Asteroids-io";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Asteroids.io;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -513,7 +524,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5PDDE5JDL6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -526,6 +539,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "cmsc436.Asteroids-io";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = Asteroids.io;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

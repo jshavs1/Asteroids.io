@@ -6,12 +6,11 @@ module.exports = class NetworkObject {
     constructor(owner) {
         this.owner = owner
         this.id = uuid();
-        this.commands = new CommandBuffer(125);
         this.transform = new NetworkTransform();
     }
 
-    update(serverFrame, command) {
-        
+    update(command) {
+
     }
 
     getState() {

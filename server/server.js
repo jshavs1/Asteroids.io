@@ -15,13 +15,15 @@ io.on('connect', function (socket) {
         console.log('Player '+socket.id+' has disconnected');
         RoomManager.leaveRoom(socket, socket.roomId);
     });
+    socket.on('ping', function() {
+        io.to(socket.id).emit('pong');
+    });
     socket.on('instantiate', function(details) {
         console.log('instantiate received from ' + details.owner);
         RoomManager.rooms[socket.roomId].instantiate(socket, details);
     });
-    socket.on('command', function(command) {
-        //console.log('Command ('+ command.frame + '): ' + command.id);
-        RoomManager.rooms[socket.roomId].enqueueCommand(command);
+    socket.on('update', function(command) {
+        RoomManager.rooms[socket.roomId].update(command);
     });
 });
 

@@ -26,8 +26,11 @@ module.exports = class Room {
     removePlayer(player) {
         delete this.players[player.id];
         delete player.roomId;
-        this.simulation.end()
         player.leave(this.id);
+
+        if (this.isEmpty) {
+            delete this.simulation;
+        }
 
         console.log('Removing player '+player.id+' from room '+this.id);
     }
@@ -38,16 +41,7 @@ module.exports = class Room {
 
         server.io.to(this.id).emit('start', {time: startTime, deltaTime: config.deltaTime});
 
-        console.log('Starting game in ' + ((startTime - Date.now()) +
-                config.serverFrameBuffer * config.deltaTime));
-
-        setTimeout(() => { this.start() }, (startTime - Date.now()) +
-                config.serverFrameBuffer * config.deltaTime);
-    }
-
-    start() {
-        console.log('Game has started');
-        this.simulation.start();
+        console.log('Starting game in ' + (startTime - Date.now()));
     }
 
     get isFull() {
@@ -66,7 +60,7 @@ module.exports = class Room {
         this.simulation.instantiate(socket, details);
     }
 
-    enqueueCommand(command) {
-        this.simulation.enqueueCommand(command);
+    update(command) {
+        this.simulation.update(command);
     }
 }
