@@ -8,6 +8,7 @@
 
 import Foundation
 import SocketIO
+import CoreLocation
 
 class SocketIOManager {
     private static var _default: SocketIOManager?
@@ -20,13 +21,19 @@ class SocketIOManager {
         }
     }
     
-    var manager: SocketManager
-    var socket: SocketIOClient
+    var _manager: SocketManager
+    static var manager: SocketManager {
+        return SocketIOManager.default._manager
+    }
+    var _socket: SocketIOClient
+    static var socket: SocketIOClient {
+        return SocketIOManager.default._socket
+    }
     
     
     init() {
-        self.manager = SocketManager(socketURL: URL(string: host!)!, config: [.compress])
-        self.socket = self.manager.defaultSocket
+        self._manager = SocketManager(socketURL: URL(string: host!)!, config: [.compress])
+        self._socket = self._manager.defaultSocket
     }
     
     func configureSocket() {
@@ -34,28 +41,42 @@ class SocketIOManager {
         
         // This callback will be executed when the client's socket initially connects to
         // the server.
-        socket.on(clientEvent: .connect) { (data, ack) in
+        _socket.on(clientEvent: .connect) { (data, ack) in
             print("Socket connected to host")
         }
-        
-        // Example of how socket receives data from the server
-        
-        // When the client initially connects to the server, the server automatically sends
-        // a "Welcome!" string through the socket on the "messege" channel. This callback
-        // is executed once the data arrives on the "messege" channel.
-        socket.on("messege") { (data, ack) in
+        _socket.on(clientEvent: .disconnect) { (data, ack) in
+            print("Socket disconnected")
+        }
+        _socket.on("start") { (data, ack) in
+            var json = data[0] as! JSON
+            print("Starting game")
             
-            // The data varibale is an array of JSON objects which only contains 1 element.
-            // Grab the JSON object at 0 index, convert it to a Dictionary and print the value
-            // at the "messege" key.
+            deltaTime = (json["deltaTime"] as! Double) / 1000
             
-            var messege = data[0] as! [String : String]
+            NetworkManager.instantiate(type: .player)
+            GameManager.synchronizedStart(at: json["time"] as! UInt64)
+        }
+        _socket.on("instantiate") { (data, ack) in
+            let json = data[0] as! JSON
             
-            // "Welcome!" printed to log
-            print(messege["messege"] ?? "error reading messege")
+            print("Instantiation received")
+            GameManager.instantiate(response: InstantiateResponse(json: json))
+        }
+        _socket.on("state") { (data, ack) in
+            let json = data[0] as! JSON
+            
+            let frame = json["frame"] as! Int
+            let states = json["states"] as! [JSON]
+            let objects = states.map({ (json) -> NetworkObject in
+                return NetworkObject(json: json)
+            })
+            
+            GameManager.updateObjects(frame: frame, objects: objects)
+            
+            //print("State received")
         }
         
         print("Socket ready")
-        socket.connect()
+        _socket.connect()
     }
 }

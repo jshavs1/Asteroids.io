@@ -10,10 +10,14 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
-
+class GameViewController: UIViewController, GameManagerDelegate {
+    
+    @IBOutlet weak var joystick: Joystick!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        GameManager.onUpdate += self.onUpdate
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -38,13 +42,28 @@ class GameViewController: UIViewController {
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
+            return .landscape
         } else {
-            return .all
+            return .landscape
         }
     }
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func onUpdate(frame: Int) {
+        if let player = Player.local {
+            let x = joystick.x * player.speed * CGFloat(deltaTime)
+            let y = joystick.y * player.speed * CGFloat(deltaTime)
+            let pos = CGPoint(x: player.transform.x + x, y: player.transform.y + y)
+            
+            player.transform.position = pos
+            
+            let command = player.newCommand
+            command.addAction(action: "x", value: x)
+            command.addAction(action: "y", value: y)
+            NetworkManager.command(c: command)
+        }
     }
 }

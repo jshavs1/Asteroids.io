@@ -15,6 +15,16 @@
 		6F13302F226101A60097885B /* Starscream.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6F13302E226101A60097885B /* Starscream.framework.dSYM */; };
 		6F133034226265040097885B /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133033226265040097885B /* SocketIOManager.swift */; };
 		6F133036226265E70097885B /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133035226265E70097885B /* Config.swift */; };
+		6F133038226F67780097885B /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133037226F67780097885B /* Command.swift */; };
+		6F13303C226F6F060097885B /* Spaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13303B226F6F060097885B /* Spaceship.swift */; };
+		6F13303F226F71FB0097885B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13303E226F71FB0097885B /* Player.swift */; };
+		6F133044226F7B5A0097885B /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133043226F7B5A0097885B /* GameManager.swift */; };
+		6F133047226F8D610097885B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133046226F8D610097885B /* Enums.swift */; };
+		6F13304A226F8EF70097885B /* Instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133049226F8EF70097885B /* Instantiate.swift */; };
+		6F13304C226F984D0097885B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13304B226F984D0097885B /* NetworkManager.swift */; };
+		6F13304E226F99890097885B /* NetworkTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13304D226F99890097885B /* NetworkTransform.swift */; };
+		6F133052226F9CE80097885B /* GameManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133051226F9CE80097885B /* GameManagerDelegate.swift */; };
+		6F133054226F9D850097885B /* NetworkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133053226F9D850097885B /* NetworkObject.swift */; };
 		6F3089EE22601D4200877AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3089ED22601D4200877AFB /* AppDelegate.swift */; };
 		6F3089F022601D4200877AFB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089EF22601D4200877AFB /* GameScene.sks */; };
 		6F3089F222601D4200877AFB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089F122601D4200877AFB /* Actions.sks */; };
@@ -23,6 +33,10 @@
 		6F3089F922601D4200877AFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089F722601D4200877AFB /* Main.storyboard */; };
 		6F3089FB22601D4400877AFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089FA22601D4400877AFB /* Assets.xcassets */; };
 		6F3089FE22601D4400877AFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089FC22601D4400877AFB /* LaunchScreen.storyboard */; };
+		6F53E8AF2270B483002F92A1 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8AE2270B483002F92A1 /* Joystick.swift */; };
+		6F53E8B22270CCF3002F92A1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B12270CCF3002F92A1 /* Extensions.swift */; };
+		6F53E8B62270FFF9002F92A1 /* CommandBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B52270FFF9002F92A1 /* CommandBuffer.swift */; };
+		6F53E8B822711240002F92A1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B722711240002F92A1 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +72,16 @@
 		6F13302E226101A60097885B /* Starscream.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Starscream.framework.dSYM; path = Carthage/Build/iOS/Starscream.framework.dSYM; sourceTree = "<group>"; };
 		6F133033226265040097885B /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		6F133035226265E70097885B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		6F133037226F67780097885B /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Command.swift; path = Asteroids.io/Command.swift; sourceTree = SOURCE_ROOT; };
+		6F13303B226F6F060097885B /* Spaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceship.swift; sourceTree = "<group>"; };
+		6F13303E226F71FB0097885B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		6F133043226F7B5A0097885B /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameManager.swift; path = Asteroids.io/GameManager.swift; sourceTree = SOURCE_ROOT; };
+		6F133046226F8D610097885B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		6F133049226F8EF70097885B /* Instantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instantiate.swift; sourceTree = "<group>"; };
+		6F13304B226F984D0097885B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Asteroids.io/NetworkManager.swift; sourceTree = SOURCE_ROOT; };
+		6F13304D226F99890097885B /* NetworkTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkTransform.swift; path = Asteroids.io/NetworkTransform.swift; sourceTree = SOURCE_ROOT; };
+		6F133051226F9CE80097885B /* GameManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerDelegate.swift; sourceTree = "<group>"; };
+		6F133053226F9D850097885B /* NetworkObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObject.swift; sourceTree = "<group>"; };
 		6F3089EA22601D4200877AFB /* Asteroids.io.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Asteroids.io.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3089ED22601D4200877AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F3089EF22601D4200877AFB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -68,6 +92,10 @@
 		6F3089FA22601D4400877AFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F3089FD22601D4400877AFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F3089FF22601D4400877AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F53E8AE2270B483002F92A1 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
+		6F53E8B12270CCF3002F92A1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6F53E8B52270FFF9002F92A1 /* CommandBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBuffer.swift; sourceTree = "<group>"; };
+		6F53E8B722711240002F92A1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +111,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F13303A226F6E800097885B /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				6F13303B226F6F060097885B /* Spaceship.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		6F13303D226F71DE0097885B /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				6F13303E226F71FB0097885B /* Player.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		6F133040226F7A120097885B /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				6F53E8B52270FFF9002F92A1 /* CommandBuffer.swift */,
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		6F133045226F8D470097885B /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				6F133046226F8D610097885B /* Enums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		6F133048226F8ED50097885B /* SocketData */ = {
+			isa = PBXGroup;
+			children = (
+				6F133037226F67780097885B /* Command.swift */,
+				6F133049226F8EF70097885B /* Instantiate.swift */,
+			);
+			path = SocketData;
+			sourceTree = "<group>";
+		};
+		6F13304F226F9CA50097885B /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				6F133043226F7B5A0097885B /* GameManager.swift */,
+				6F133051226F9CE80097885B /* GameManagerDelegate.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		6F133050226F9CC00097885B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6F13304B226F984D0097885B /* NetworkManager.swift */,
+				6F13304D226F99890097885B /* NetworkTransform.swift */,
+				6F133053226F9D850097885B /* NetworkObject.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		6F3089E122601D4200877AFB = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +194,14 @@
 		6F3089EC22601D4200877AFB /* Asteroids.io */ = {
 			isa = PBXGroup;
 			children = (
+				6F53E8B02270CCC6002F92A1 /* Extensions */,
+				6F133050226F9CC00097885B /* Network */,
+				6F13304F226F9CA50097885B /* Game */,
+				6F133048226F8ED50097885B /* SocketData */,
+				6F133045226F8D470097885B /* Enums */,
+				6F133040226F7A120097885B /* Command */,
+				6F13303D226F71DE0097885B /* Player */,
+				6F13303A226F6E800097885B /* Nodes */,
 				6F3089ED22601D4200877AFB /* AppDelegate.swift */,
 				6F3089EF22601D4200877AFB /* GameScene.sks */,
 				6F3089F122601D4200877AFB /* Actions.sks */,
@@ -117,8 +213,18 @@
 				6F3089FF22601D4400877AFB /* Info.plist */,
 				6F133033226265040097885B /* SocketIOManager.swift */,
 				6F133035226265E70097885B /* Config.swift */,
+				6F53E8AE2270B483002F92A1 /* Joystick.swift */,
+				6F53E8B722711240002F92A1 /* Event.swift */,
 			);
 			path = Asteroids.io;
+			sourceTree = "<group>";
+		};
+		6F53E8B02270CCC6002F92A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6F53E8B12270CCF3002F92A1 /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,11 +327,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F13304A226F8EF70097885B /* Instantiate.swift in Sources */,
+				6F53E8B22270CCF3002F92A1 /* Extensions.swift in Sources */,
 				6F133034226265040097885B /* SocketIOManager.swift in Sources */,
 				6F3089F422601D4200877AFB /* GameScene.swift in Sources */,
+				6F13304E226F99890097885B /* NetworkTransform.swift in Sources */,
+				6F13304C226F984D0097885B /* NetworkManager.swift in Sources */,
+				6F53E8B822711240002F92A1 /* Event.swift in Sources */,
 				6F133036226265E70097885B /* Config.swift in Sources */,
+				6F13303C226F6F060097885B /* Spaceship.swift in Sources */,
+				6F53E8AF2270B483002F92A1 /* Joystick.swift in Sources */,
+				6F133052226F9CE80097885B /* GameManagerDelegate.swift in Sources */,
+				6F13303F226F71FB0097885B /* Player.swift in Sources */,
 				6F3089F622601D4200877AFB /* GameViewController.swift in Sources */,
 				6F3089EE22601D4200877AFB /* AppDelegate.swift in Sources */,
+				6F133038226F67780097885B /* Command.swift in Sources */,
+				6F133044226F7B5A0097885B /* GameManager.swift in Sources */,
+				6F53E8B62270FFF9002F92A1 /* CommandBuffer.swift in Sources */,
+				6F133047226F8D610097885B /* Enums.swift in Sources */,
+				6F133054226F9D850097885B /* NetworkObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

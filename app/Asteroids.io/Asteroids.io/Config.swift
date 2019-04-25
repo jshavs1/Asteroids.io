@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias JSON = [String : Any]
+
 var host: String? {
     get {
         guard let path = Bundle.main.path(forResource: "Info", ofType: "plist") else { return nil }
@@ -16,3 +18,5 @@ var host: String? {
         return dict["HOST_URL"] as? String
     }
 }
+
+var deltaTime: TimeInterval = floor(10.0/1000.0)
