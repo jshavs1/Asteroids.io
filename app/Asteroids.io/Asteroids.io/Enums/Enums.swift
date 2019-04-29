@@ -10,4 +10,5 @@ import Foundation
 
 enum NetworkObjectType: String {
     case player = "player"
+    case laser = "laser"
 }

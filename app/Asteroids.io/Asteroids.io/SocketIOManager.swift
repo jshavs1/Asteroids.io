@@ -84,15 +84,13 @@ class SocketIOManager {
     
     func ping() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            print("ping")
-            self.pingTime = Date().timeIntervalSince1970
+            self.pingTime = Date().timeIntervalSince1970 * 1000
             self._socket.emit("myping")
         })
     }
     
     func pong() {
-        print("pong")
-        self.pongTime = Date().timeIntervalSince1970
+        self.pongTime = Date().timeIntervalSince1970 * 1000
         onLatency.invoke(t: (pongTime - pingTime))
     }
 }

@@ -38,7 +38,10 @@ class GameScene: SKScene, GameManagerDelegate {
                 Player.local = player
             }
             addChild(player.ship)
+        default:
+            break
         }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

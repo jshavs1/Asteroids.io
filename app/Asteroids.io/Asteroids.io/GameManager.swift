@@ -90,6 +90,8 @@ class GameManager {
         switch response.type {
         case .player:
             object = Player(owner: response.owner, id: response.id, transform: response.transform)
+        default:
+            break
         }
         
         GameManager.default.objects[object.id] = object

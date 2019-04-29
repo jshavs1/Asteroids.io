@@ -29,6 +29,8 @@ class NetworkManager {
         switch type {
         case .player:
             SocketIOManager.socket.emit("instantiate", Instantiate(type: .player))
+        default:
+            break
         }
     }
     
