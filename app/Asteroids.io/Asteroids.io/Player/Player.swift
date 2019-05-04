@@ -18,9 +18,17 @@ class Player: NetworkObject {
     
     override init(owner: String, id: String, transform: NetworkTransform) {
         super.init(owner: owner, id: id, transform: transform)
-        ship = Spaceship()
+        
+        if isMine {
+            ship = Spaceship(imageNamed: "player")
+            NSLog("Our Ship: Player")
+        } else {
+            ship = Spaceship(imageNamed: "enemy")
+            NSLog("Our Ship: Enemy")
+        }
+        //ship = Spaceship()
         ship.position = CGPoint(x: transform.x, y: transform.y)
-        ship.fillColor = isMine ? UIColor.cyan : UIColor.red
+        //ship.fillColor = isMine ? UIColor.cyan : UIColor.red
     }
     
     override func transformWillChange(newTransform: NetworkTransform) {

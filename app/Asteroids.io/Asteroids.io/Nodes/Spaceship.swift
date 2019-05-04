@@ -9,15 +9,21 @@
 import Foundation
 import SpriteKit
 
-class Spaceship: SKShapeNode {
+class Spaceship: SKSpriteNode {
     
-    override init() {
-        super.init()
-        let rect = CGRect(x: 0, y: 0, width: 200, height: 200)
-        self.path = CGPath(rect: rect, transform: nil)
+    init(imageNamed: String) {
         
-        self.fillColor = UIColor.blue
-        self.strokeColor = UIColor.clear
+        let texture = SKTexture(imageNamed: imageNamed)
+        super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        //super.init(imageNamed: "player")
+        //self.imageNamed = "player"       //self.
+        //let rect = CGRect(x: 0, y: 0, width: 200, height: 200)
+        //self.path = CGPath(rect: rect, transform: nil)
+        
+        //self.fillColor = UIColor.blue
+        //self.strokeColor = UIColor.clear
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
