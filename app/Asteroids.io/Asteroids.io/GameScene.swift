@@ -66,6 +66,7 @@ class GameScene: SKScene, GameManagerDelegate {
         self.touchMoved(toPoint: (touches.first?.location(in: self))!)
     }
     
+    // This notices when the current player fires
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // 1 - Choose one of the touches to work with
         guard let touch = touches.first else {
@@ -84,6 +85,7 @@ class GameScene: SKScene, GameManagerDelegate {
             NSLog("FIREEE")
             // 2 - Set up initial location of projectile
             let projectile = SKSpriteNode(imageNamed: "bolt")
+            projectile.setScale(4.0)
             projectile.position.x = player.position.x
             projectile.position.y = player.position.y
             
@@ -102,13 +104,13 @@ class GameScene: SKScene, GameManagerDelegate {
             let direction = offset//offset.normalized()
             
             // 7 - Make it shoot far enough to be guaranteed off screen
-            let shootAmount = direction * 1000.0
+            let shootAmount = direction * 10
             
             // 8 - Add the shoot amount to the current position
             let realDest = shootAmount + projectile.position
             
             // 9 - Create the actions
-            let actionMove = SKAction.move(to: realDest, duration: 2.0)
+            let actionMove = SKAction.move(to: realDest, duration: 1.0)
             let actionMoveDone = SKAction.removeFromParent()
             
             //let myX = player.position.x - touchLocation.x

@@ -18,7 +18,7 @@ class Laser: NetworkObject {
     var directionY = 0
     
 
-    let DegreesToRadians =  CFloat(Double.pi/180)
+    //let DegreesToRadians =  CFloat(Double.pi/180)
     
     
     override init(owner: String, id: String, transform: NetworkTransform) {
@@ -32,8 +32,8 @@ class Laser: NetworkObject {
     
     override func transformWillChange(newTransform: NetworkTransform) {
         
-        let myX = projectile.position.x - newTransform.position.x
-        let myY = projectile.position.x - newTransform.position.y
+        //let myX = projectile.position.x - newTransform.position.x
+        //let myY = projectile.position.x - newTransform.position.y
         
         //let angle = atan2(myY, myX)
         
