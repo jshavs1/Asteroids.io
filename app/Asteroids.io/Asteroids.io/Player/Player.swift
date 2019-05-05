@@ -14,7 +14,9 @@ class Player: NetworkObject {
     static var local: Player?
     var ship: Spaceship!
     let speed: CGFloat = 1000
-    
+    var directionX : CGFloat = 0.0
+    var directionY: CGFloat = 0.0
+    var myAngle: CGFloat = 0.0
     let DegreesToRadians =  CFloat(Double.pi/180)
     
     override init(owner: String, id: String, transform: NetworkTransform) {
@@ -36,9 +38,12 @@ class Player: NetworkObject {
         
         let myX = ship.position.x - newTransform.position.x
         let myY = ship.position.y - newTransform.position.y
+        directionY = myY
+        directionX = myX
+        
         
         let angle = atan2(myY, myX)
-        
+        myAngle = angle
         ship.zRotation = angle + CGFloat(90 * DegreesToRadians)
         
         let translate = SKAction.move(to: newTransform.position, duration: deltaTime)
