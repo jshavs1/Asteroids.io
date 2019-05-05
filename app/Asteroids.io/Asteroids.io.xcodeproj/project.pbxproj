@@ -37,7 +37,9 @@
 		6F53E8B22270CCF3002F92A1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B12270CCF3002F92A1 /* Extensions.swift */; };
 		6F53E8B62270FFF9002F92A1 /* CommandBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B52270FFF9002F92A1 /* CommandBuffer.swift */; };
 		6F53E8B822711240002F92A1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B722711240002F92A1 /* Event.swift */; };
-		6FA8556E2272583A00579453 /* Laser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA8556D2272583A00579453 /* Laser.swift */; };
+		D276F5BD227F8BA30005ACFC /* LargeAsteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D276F5BC227F8BA30005ACFC /* LargeAsteroid.swift */; };
+		D294CA58227E10B500FE9831 /* Laser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D294CA57227E10B500FE9831 /* Laser.swift */; };
+		D294CA5A227E25D300FE9831 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D294CA59227E25D300FE9831 /* Bullet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -97,7 +99,9 @@
 		6F53E8B12270CCF3002F92A1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6F53E8B52270FFF9002F92A1 /* CommandBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBuffer.swift; sourceTree = "<group>"; };
 		6F53E8B722711240002F92A1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		6FA8556D2272583A00579453 /* Laser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laser.swift; sourceTree = "<group>"; };
+		D276F5BC227F8BA30005ACFC /* LargeAsteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeAsteroid.swift; sourceTree = "<group>"; };
+		D294CA57227E10B500FE9831 /* Laser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laser.swift; sourceTree = "<group>"; };
+		D294CA59227E25D300FE9831 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				6F13303B226F6F060097885B /* Spaceship.swift */,
-				6FA8556D2272583A00579453 /* Laser.swift */,
+				D294CA59227E25D300FE9831 /* Bullet.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -197,6 +201,7 @@
 		6F3089EC22601D4200877AFB /* Asteroids.io */ = {
 			isa = PBXGroup;
 			children = (
+				D276F5BB227F83F80005ACFC /* Asteroids */,
 				6F53E8B9227230BD002F92A1 /* SocketIO */,
 				6F53E8B02270CCC6002F92A1 /* Extensions */,
 				6F133050226F9CC00097885B /* Network */,
@@ -204,6 +209,7 @@
 				6F133048226F8ED50097885B /* SocketData */,
 				6F133045226F8D470097885B /* Enums */,
 				6F133040226F7A120097885B /* Command */,
+				D294CA56227E108900FE9831 /* Laser */,
 				6F13303D226F71DE0097885B /* Player */,
 				6F13303A226F6E800097885B /* Nodes */,
 				6F3089ED22601D4200877AFB /* AppDelegate.swift */,
@@ -236,6 +242,22 @@
 				6F133033226265040097885B /* SocketIOManager.swift */,
 			);
 			path = SocketIO;
+			sourceTree = "<group>";
+		};
+		D276F5BB227F83F80005ACFC /* Asteroids */ = {
+			isa = PBXGroup;
+			children = (
+				D276F5BC227F8BA30005ACFC /* LargeAsteroid.swift */,
+			);
+			path = Asteroids;
+			sourceTree = "<group>";
+		};
+		D294CA56227E108900FE9831 /* Laser */ = {
+			isa = PBXGroup;
+			children = (
+				D294CA57227E10B500FE9831 /* Laser.swift */,
+			);
+			path = Laser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,22 +364,24 @@
 				6F53E8B22270CCF3002F92A1 /* Extensions.swift in Sources */,
 				6F133034226265040097885B /* SocketIOManager.swift in Sources */,
 				6F3089F422601D4200877AFB /* GameScene.swift in Sources */,
+				D294CA58227E10B500FE9831 /* Laser.swift in Sources */,
 				6F13304E226F99890097885B /* NetworkTransform.swift in Sources */,
 				6F13304C226F984D0097885B /* NetworkManager.swift in Sources */,
 				6F53E8B822711240002F92A1 /* Event.swift in Sources */,
 				6F133036226265E70097885B /* Config.swift in Sources */,
 				6F13303C226F6F060097885B /* Spaceship.swift in Sources */,
+				D276F5BD227F8BA30005ACFC /* LargeAsteroid.swift in Sources */,
 				6F53E8AF2270B483002F92A1 /* Joystick.swift in Sources */,
 				6F133052226F9CE80097885B /* GameManagerDelegate.swift in Sources */,
 				6F13303F226F71FB0097885B /* Player.swift in Sources */,
 				6F3089F622601D4200877AFB /* GameViewController.swift in Sources */,
-				6FA8556E2272583A00579453 /* Laser.swift in Sources */,
 				6F3089EE22601D4200877AFB /* AppDelegate.swift in Sources */,
 				6F133038226F67780097885B /* Command.swift in Sources */,
 				6F133044226F7B5A0097885B /* GameManager.swift in Sources */,
 				6F53E8B62270FFF9002F92A1 /* CommandBuffer.swift in Sources */,
 				6F133047226F8D610097885B /* Enums.swift in Sources */,
 				6F133054226F9D850097885B /* NetworkObject.swift in Sources */,
+				D294CA5A227E25D300FE9831 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

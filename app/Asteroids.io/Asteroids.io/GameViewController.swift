@@ -29,6 +29,8 @@ class GameViewController: UIViewController, GameManagerDelegate{
         
         //GameScene.viewController = self
         
+        
+        
         GameManager.onUpdate += self.onUpdate
         SocketIOManager.default.onLatency += self.onLatency
         SocketIOManager.default.ping()
@@ -37,6 +39,7 @@ class GameViewController: UIViewController, GameManagerDelegate{
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
+            
             if let scene = SKScene(fileNamed: "GameScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
@@ -46,11 +49,7 @@ class GameViewController: UIViewController, GameManagerDelegate{
                 view.presentScene(scene)
             }
             
-           
-            
-            
             view.ignoresSiblingOrder = true
-            
             view.showsFPS = true
             view.showsNodeCount = true
         }
@@ -85,6 +84,22 @@ class GameViewController: UIViewController, GameManagerDelegate{
             command.addAction(action: "y", value: y)
             NetworkManager.update(command: command)
         }
+        
+        if let laser = Laser.local {
+            let x: CGFloat = CGFloat(laser.directionX)
+            let y: CGFloat = CGFloat(laser.directionY)
+            let pos : CGPoint = CGPoint(x: laser.projectile.position.x + x, y: laser.projectile.position.y + y)
+            
+            laser.transform.position = pos
+            
+            let command = laser.newCommand
+            command.addAction(action: "x", value: x)
+            command.addAction(action: "y", value: y)
+            NetworkManager.update(command: command)
+        }
+        
+        
+      
     }
     
     func onLatency(latency: Double) {
@@ -94,46 +109,5 @@ class GameViewController: UIViewController, GameManagerDelegate{
     
    
     
-    func handleTap(gesture: UITapGestureRecognizer) -> Void {
-        NSLog("FIRE")
-        let gestureX = gesture.location(in:  gesture.view).x
-        let gestureY = gesture.location(in: gesture.view).y
-        if let player = Player.local {
-            let directionX = player.directionX - gestureX
-            let directionY = player.directionY - gestureY
-            let projectile = Bullet()
-            projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-            projectile.physicsBody?.isDynamic = true
-            projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
-            projectile.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
-            projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
-            projectile.physicsBody?.usesPreciseCollisionDetection = true
-            
-            projectile.position.x = directionX
-            projectile.position.y = directionY
-            
-            
-            
-            
-        }
-    }
-    @IBAction func PlayerFired(_ sender: Any) {
-        /*NSLog("FIRE")
-        if let player = Player.local {
-            let directionX = player.directionX
-            let directionY = player.directionY
-            let projectile = Bullet()
-            projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-            projectile.physicsBody?.isDynamic = true
-            projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
-            projectile.physicsBody?.contactTestBitMask = PhysicsCategory.asteroid
-            projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
-            projectile.physicsBody?.usesPreciseCollisionDetection = true
-            
-            projectile.position.x = player.directionX
-            projectile.position.y = player.directionY
-            
-        }*/
-        
-    }
+    
 }

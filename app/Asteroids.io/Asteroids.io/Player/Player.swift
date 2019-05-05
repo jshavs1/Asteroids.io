@@ -18,10 +18,12 @@ class Player: NetworkObject {
     var directionY: CGFloat = 0.0
     var myAngle: CGFloat = 0.0
     let DegreesToRadians =  CFloat(Double.pi/180)
+    var lives = 3
     
     override init(owner: String, id: String, transform: NetworkTransform) {
         super.init(owner: owner, id: id, transform: transform)
         
+        // Selects which sprite to use for the spaceships
         if isMine {
             ship = Spaceship(imageNamed: "player")
             NSLog("Our Ship: Player")
@@ -34,13 +36,13 @@ class Player: NetworkObject {
         //ship.fillColor = isMine ? UIColor.cyan : UIColor.red
     }
     
+    // Rotates the spaceship with its motion
     override func transformWillChange(newTransform: NetworkTransform) {
         
         let myX = ship.position.x - newTransform.position.x
         let myY = ship.position.y - newTransform.position.y
         directionY = myY
         directionX = myX
-        
         
         let angle = atan2(myY, myX)
         myAngle = angle

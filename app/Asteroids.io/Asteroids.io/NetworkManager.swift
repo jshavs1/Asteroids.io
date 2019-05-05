@@ -29,6 +29,8 @@ class NetworkManager {
         switch type {
         case .player:
             SocketIOManager.socket.emit("instantiate", Instantiate(type: .player))
+        case .laser:
+            SocketIOManager.socket.emit("instantiate", Instantiate(type: .laser))
         default:
             break
         }
