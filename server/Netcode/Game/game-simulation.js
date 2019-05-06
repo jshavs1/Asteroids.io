@@ -1,6 +1,7 @@
 var server = require('../../server');
 var config = require('../../config');
 var PlayerObject = require('../Player/player-object');
+var LaserObject = require('../Laser/laser-object');
 
 class GameSimulation {
     constructor(roomId) {
@@ -35,23 +36,36 @@ class GameSimulation {
 
     instantiate(socket, details) {
         console.log('emitting instantiate to ' + this.roomId);
+        var object;
+        var data;
         switch(details.type) {
             case 'player':
-                var player = new PlayerObject(socket.id);
-                player.transform.setPosition(0, 0);
-                this.networkObjects[player.id] = player;
-
-                server.io.to(this.roomId).emit('instantiate',
-                {
-                    owner: details.owner,
-                    type: details.type,
-                    id: player.id,
-                    transform: player.transform,
-                });
-
+                object = new PlayerObject(socket.id);
+                object.transform.setPosition(0, 0);
+                break;
+            case 'laser':
+                object = new LaserObject(socket.id);
+                object.transform.setPosition(details.data.x, details.data.y);
+                data = {
+                    dx: details.data.dx,
+                    dy: details.data.dy
+                }
                 break;
             default:
                 console.log(details);
+        }
+
+        if (typeof object !== 'undefined') {
+            this.networkObjects[object.id] = object;
+
+            server.io.to(this.roomId).emit('instantiate',
+            {
+                owner: details.owner,
+                type: details.type,
+                id: object.id,
+                transform: object.transform,
+                data: data
+            });
         }
     }
 
