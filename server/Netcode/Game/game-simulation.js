@@ -38,15 +38,20 @@ class GameSimulation {
         console.log('emitting instantiate to ' + this.roomId);
         var object;
         var data;
-        switch(details.type) {
+        console.log('DETALILS: ')
+        console.log(details)
+                switch(details.type) {
             case 'player':
                 object = new PlayerObject(socket.id);
                 object.transform.setPosition(0, 0);
                 break;
             case 'laser':
+            	console.log("Creating Laser")
                 object = new LaserObject(socket.id);
                 object.transform.setPosition(details.data.x, details.data.y);
                 data = {
+                	x: details.data.x,
+                	y: details.data.y,
                     dx: details.data.dx,
                     dy: details.data.dy
                 }
@@ -57,7 +62,7 @@ class GameSimulation {
 
         if (typeof object !== 'undefined') {
             this.networkObjects[object.id] = object;
-
+			console.log("undefined object creation!")
             server.io.to(this.roomId).emit('instantiate',
             {
                 owner: details.owner,

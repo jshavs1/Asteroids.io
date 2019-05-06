@@ -92,8 +92,18 @@ class GameManager {
         case .player:
             object = Player(owner: response.owner, id: response.id, transform: response.transform)
         case .laser:
+            NSLog("Making Laser")
             let dir = CGVector(dx: response.data!["dx"] as! Double, dy: response.data!["dy"] as! Double)
-            object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
+            //NSLog("\(response.data)")
+            let playerPoint = CGPoint(x: response.data!["x"] as! Double, y: response.data!["y"] as! Double)
+            let touchedPoint = CGPoint(x: response.data!["dx"] as! Double, y: response.data!["dy"] as! Double)
+            
+            
+            // 9 - Create the actions
+            //let actionMove = SKAction.move(to: realDest, duration: 1.0)
+            //let actionMoveDone = SKAction.removeFromParent()
+            //object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
+            object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir, point: touchedPoint, toPoint: playerPoint)
         }
         
         GameManager.default.objects[object.id] = object
@@ -118,4 +128,34 @@ class GameManager {
         }
     }
     
+}
+// These operators allow us to calculate the trajectory of the projectiles
+func +(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+func -(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+func *(point: CGPoint, scalar: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x * scalar, y: point.y * scalar)
+}
+func /(point: CGPoint, scalar: CGFloat) -> CGPoint {
+    return CGPoint(x: point.x / scalar, y: point.y / scalar)
+}
+
+#if !(arch(x86_64) || arch(arm64))
+func sqrt(a: CGFloat) -> CGFloat {
+    return CGFloat(sqrtf(Float(a)))
+}
+#endif
+
+extension CGPoint {
+    func length() -> CGFloat {
+        return sqrt(x*x + y*y)
+    }
+    
+    func normalized() -> CGPoint {
+        return self / length()
+        
+    }
 }

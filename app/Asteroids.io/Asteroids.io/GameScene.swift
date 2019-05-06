@@ -13,7 +13,9 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
     //var viewController: GameViewController!
     var isPlayerThere = false
-    
+    var didTap = false
+    var touchLocation: CGPoint = CGPoint(x: 0.0,y: 0.0)
+    var playerPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     struct PhysicsCategory {
         static let none      : UInt32 = 0
@@ -102,18 +104,24 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             return
         }
         //run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-        
+        //didTap = true
+        //touchLocation = touch.location(in: self)
         // If a player taps without the game started, returns without doing anything
         if Player.local == nil {
             return
         }
+        //didTap = true
         
         if let player = Player.local!.ship{
-            let touchLocation = touch.location(in: self)
+            touchLocation = touch.location(in: self)
+            playerPoint = player.position
             NSLog("FIREEE")
+            NSLog("\(touch.location(in: self))")
+            NSLog("\(player.position)")
+            didTap = true
             // 2 - Set up initial location of projectile
             
-            var laserJSON = "{"
+           /* var laserJSON = "{"
             
             let laser = Laser(owner: SocketIOManager.socket.sid, id: "", transform: NetworkTransform())
             let projectile = SKSpriteNode(imageNamed: "bolt")
@@ -127,9 +135,6 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             // 3 - Determine offset of location to projectile
             let offset = touchLocation - projectile.position
             
-            laserJSON += (" VelX: \(offset.x), ")
-            laserJSON += (" VelY: \(offset.y) ")
-            laserJSON += "}"
             projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
             projectile.physicsBody?.isDynamic = true
             projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
@@ -143,7 +148,6 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             let direction = offset.normalized()
             
             // 7 - Make it shoot far enough to be guaranteed off screen
-            
             let shootAmount = direction * 2500
             
             // 8 - Add the shoot amount to the current position
@@ -155,12 +159,26 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             
             //let transform = NetworkTransform()
             
-            projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+            projectile.run(SKAction.sequence([actionMove, actionMoveDone]))*/
         }
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        // Creates a new Laser
+        if (didTap){
+            NSLog("Creating Laser")
+            var json = JSON()
+            json["x"] = touchLocation.x
+            json["y"] = touchLocation.y
+            json["dx"] = playerPoint.x
+            json["dy"] = playerPoint.y
+            NetworkManager.instantiate(type: .laser, data: json)
+            
+            didTap = false
+        }
+        
     }
     
 }
@@ -168,7 +186,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
 let DegreesToRadians =  CFloat(Double.pi/180)
 
 // These operators allow us to calculate the trajectory of the projectiles
-func +(left: CGPoint, right: CGPoint) -> CGPoint {
+/*func +(left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
 func -(left: CGPoint, right: CGPoint) -> CGPoint {
@@ -196,4 +214,4 @@ extension CGPoint {
         return self / length()
         
     }
-}
+}*/
