@@ -84,22 +84,6 @@ class GameViewController: UIViewController {
             command.addAction(action: "y", value: y)
             NetworkManager.update(command: command)
         }
-
-        if let laser = Laser.local {
-            let x: CGFloat = CGFloat(laser.directionX)
-            let y: CGFloat = CGFloat(laser.directionY)
-            let pos : CGPoint = CGPoint(x: laser.projectile.position.x + x, y: laser.projectile.position.y + y)
-
-            laser.transform.position = pos
-
-            let command = laser.newCommand
-            command.addAction(action: "x", value: x)
-            command.addAction(action: "y", value: y)
-            NetworkManager.update(command: command)
-        }
-
-
-
     }
 
     func onLatency(latency: Double) {

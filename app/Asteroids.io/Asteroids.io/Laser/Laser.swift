@@ -2,40 +2,56 @@
 //  Laser.swift
 //  Asteroids.io
 //
-//  Created by user915547 on 5/4/19.
+//  Created by Tony on 4/25/19.
 //  Copyright © 2019 cmsc436. All rights reserved.
 //
 
 import Foundation
-import UIKit
 import SpriteKit
 
 class Laser: NetworkObject {
-    static var local: Laser?
-    var projectile: Bullet!
-    let speed: CGFloat = 1000
-    var directionX = 0
-    var directionY = 0
-    var direction: CGPoint = CGPoint(x: 0.0, y:0.0)
     
-    //let DegreesToRadians =  CFloat(Double.pi/180)
+    var node: SKShapeNode
+    var direction: CGVector
+    var velocity: CGVector!
+    static let speed: CGFloat = 2000
     
     override init(owner: String, id: String, transform: NetworkTransform) {
+        self.node = SKShapeNode()
+        self.direction = CGVector.zero
+        self.velocity = CGVector.zero
         super.init(owner: owner, id: id, transform: transform)
-        
-        projectile = Bullet()
-      
-        projectile.position = CGPoint(x: transform.x, y: transform.y)
-       
+        setupNode()
+    }
+    
+    init(owner: String, id: String, transform: NetworkTransform, direction: CGVector) {
+        self.node = SKShapeNode()
+        self.direction = direction
+        self.velocity = CGVector(dx: cos(direction.dx) * Laser.speed * CGFloat(deltaTime), dy: sin(direction.dy) * Laser.speed * CGFloat(deltaTime))
+        super.init(owner: owner, id: id, transform: transform)
+        setupNode()
+    }
+    
+    func setupNode() {
+        let rect = CGRect(x: 0, y: 0, width: 20, height: 100)
+        node.path = CGPath(rect: rect, transform: nil)
+        node.physicsBody = SKPhysicsBody(rectangleOf: rect.size)
+        node.physicsBody!.categoryBitMask = isMine ? playerCategoryMask : enemyCategoryMask
+        node.physicsBody!.contactTestBitMask = isMine ? enemyCategoryMask : playerCategoryMask
+        node.fillColor = UIColor.orange
+        node.strokeColor = UIColor.clear
+    }
+    
+    func shoot() {
+        guard node.scene != nil else { return }
+        let action = SKAction.move(by: self.velocity, duration: deltaTime)
+        node.run(action) {
+            self.shoot()
+        }
     }
     
     override func transformWillChange(newTransform: NetworkTransform) {
-        
-        let translate = SKAction.move(to: newTransform.position, duration: deltaTime)
-        projectile.run(translate)
-    }
-    
-    func moveProjectile(){
-        
+        let action = SKAction.move(to: newTransform.position, duration: deltaTime)
+        node.run(action)
     }
 }

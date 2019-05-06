@@ -39,7 +39,6 @@
 		6F53E8B822711240002F92A1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53E8B722711240002F92A1 /* Event.swift */; };
 		D276F5BD227F8BA30005ACFC /* LargeAsteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D276F5BC227F8BA30005ACFC /* LargeAsteroid.swift */; };
 		D294CA58227E10B500FE9831 /* Laser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D294CA57227E10B500FE9831 /* Laser.swift */; };
-		D294CA5A227E25D300FE9831 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D294CA59227E25D300FE9831 /* Bullet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,7 +100,6 @@
 		6F53E8B722711240002F92A1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		D276F5BC227F8BA30005ACFC /* LargeAsteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeAsteroid.swift; sourceTree = "<group>"; };
 		D294CA57227E10B500FE9831 /* Laser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laser.swift; sourceTree = "<group>"; };
-		D294CA59227E25D300FE9831 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				6F13303B226F6F060097885B /* Spaceship.swift */,
-				D294CA59227E25D300FE9831 /* Bullet.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -381,7 +378,6 @@
 				6F53E8B62270FFF9002F92A1 /* CommandBuffer.swift in Sources */,
 				6F133047226F8D610097885B /* Enums.swift in Sources */,
 				6F133054226F9D850097885B /* NetworkObject.swift in Sources */,
-				D294CA5A227E25D300FE9831 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
