@@ -26,19 +26,18 @@ class NetworkManager {
         NetworkManager.default.instantiate(type: type, data: data)
     }
     func instantiate(type: NetworkObjectType, data: JSON? = nil) {
-        switch type {
-        case .player:
-            SocketIOManager.socket.emit("instantiate", Instantiate(type: .player, data: data))
-        case .laser:
-            SocketIOManager.socket.emit("instantiate", Instantiate(type: .laser, data: data))
-        }
+        SocketIOManager.socket.emit("instantiate", Instantiate(type: type, data: data))
     }
 
     static func destroy(object: NetworkObject) {
-        SocketIOManager.socket.emit("destroy", object.newCommand)
+        SocketIOManager.socket.emit("destroy", object.id)
     }
 
     static func update(command: Command) {
         SocketIOManager.socket.emit("update", command)
+    }
+    
+    static func hit(hit: Hit) {
+        SocketIOManager.socket.emit("hit", hit)
     }
 }

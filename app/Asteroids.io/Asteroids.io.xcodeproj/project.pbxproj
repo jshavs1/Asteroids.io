@@ -25,6 +25,7 @@
 		6F13304E226F99890097885B /* NetworkTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F13304D226F99890097885B /* NetworkTransform.swift */; };
 		6F133052226F9CE80097885B /* GameManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133051226F9CE80097885B /* GameManagerDelegate.swift */; };
 		6F133054226F9D850097885B /* NetworkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F133053226F9D850097885B /* NetworkObject.swift */; };
+		6F1BE64E2280BCBB00BBD68D /* Hit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1BE64D2280BCBB00BBD68D /* Hit.swift */; };
 		6F3089EE22601D4200877AFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3089ED22601D4200877AFB /* AppDelegate.swift */; };
 		6F3089F022601D4200877AFB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089EF22601D4200877AFB /* GameScene.sks */; };
 		6F3089F222601D4200877AFB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F3089F122601D4200877AFB /* Actions.sks */; };
@@ -84,6 +85,7 @@
 		6F13304D226F99890097885B /* NetworkTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkTransform.swift; path = Asteroids.io/NetworkTransform.swift; sourceTree = SOURCE_ROOT; };
 		6F133051226F9CE80097885B /* GameManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerDelegate.swift; sourceTree = "<group>"; };
 		6F133053226F9D850097885B /* NetworkObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObject.swift; sourceTree = "<group>"; };
+		6F1BE64D2280BCBB00BBD68D /* Hit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hit.swift; sourceTree = "<group>"; };
 		6F3089EA22601D4200877AFB /* Asteroids.io.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Asteroids.io.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3089ED22601D4200877AFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F3089EF22601D4200877AFB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				6F133037226F67780097885B /* Command.swift */,
 				6F133049226F8EF70097885B /* Instantiate.swift */,
+				6F1BE64D2280BCBB00BBD68D /* Hit.swift */,
 			);
 			path = SocketData;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				6F13304C226F984D0097885B /* NetworkManager.swift in Sources */,
 				6F53E8B822711240002F92A1 /* Event.swift in Sources */,
 				6F133036226265E70097885B /* Config.swift in Sources */,
+				6F1BE64E2280BCBB00BBD68D /* Hit.swift in Sources */,
 				6F13303C226F6F060097885B /* Spaceship.swift in Sources */,
 				D276F5BD227F8BA30005ACFC /* LargeAsteroid.swift in Sources */,
 				6F53E8AF2270B483002F92A1 /* Joystick.swift in Sources */,

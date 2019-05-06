@@ -78,6 +78,13 @@ class SocketIOManager {
             
             GameManager.update(object: object)
         }
+        _socket.on("hit") { (data, ack) in
+            let json = data[0] as! JSON
+            let hit = Hit(json: json)
+            
+            GameManager.hit(hit: hit)
+        }
+        
         _socket.on("destroy") { (data, ack) in
             let json = data[0] as! JSON
             let id = json["id"] as! String

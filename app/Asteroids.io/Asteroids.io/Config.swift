@@ -21,5 +21,14 @@ var host: String? {
 
 var deltaTime: TimeInterval = floor(10.0/1000.0)
 
-let playerCategoryMask: uint = 0x1 << 1
-let enemyCategoryMask: uint = 0x1 << 2
+struct PhysicsCategory {
+    static let none                 : UInt32 = 0
+    static let all                  : UInt32 = UInt32.max
+    static let player               : UInt32 = 0b1
+    static let enemy                : UInt32 = 0b10
+    static let playerProjectile     : UInt32 = 0b100
+    static let enemyProjectile      : UInt32 = 0b1000
+    static let asteroid             : UInt32 = 0b10000
+}
+
+let DegreesToRadians =  CFloat(Double.pi/180)

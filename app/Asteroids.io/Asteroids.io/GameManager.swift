@@ -91,9 +91,11 @@ class GameManager {
         switch response.type {
         case .player:
             object = Player(owner: response.owner, id: response.id, transform: response.transform)
+            break
         case .laser:
             let dir = CGVector(dx: response.data!["dx"] as! Double, dy: response.data!["dy"] as! Double)
             object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
+            break
         }
         
         GameManager.default.objects[object.id] = object
@@ -105,7 +107,17 @@ class GameManager {
     }
     
     func destroy(id: String) {
-        self.objects.removeValue(forKey: id)
+        if let networkObject = self.objects.removeValue(forKey: id) {
+            GameManager.delegate?.destroy(object: networkObject)
+        }
+    }
+    
+    static func hit(hit: Hit) {
+        GameManager.default.hit(hit: hit)
+    }
+    
+    func hit(hit: Hit) {
+        print("Hit messege received")
     }
     
     static func findObject(id: String) -> NetworkObject? {

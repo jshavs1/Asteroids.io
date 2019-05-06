@@ -12,13 +12,15 @@ import SpriteKit
 
 class Player: NetworkObject {
     static var local: Player?
-    var ship: Spaceship!
     let speed: CGFloat = 1000
     var directionX : CGFloat = 0.0
     var directionY: CGFloat = 0.0
     var myAngle: CGFloat = 0.0
-    let DegreesToRadians =  CFloat(Double.pi/180)
-    var lives = 3
+    
+    var ship: Spaceship {
+        get { return node as! Spaceship }
+        set { self.node = newValue }
+    }
     
     override init(owner: String, id: String, transform: NetworkTransform) {
         super.init(owner: owner, id: id, transform: transform)
@@ -26,9 +28,18 @@ class Player: NetworkObject {
         // Selects which sprite to use for the spaceships
         if isMine {
             ship = Spaceship(imageNamed: "player")
+            ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
+            ship.physicsBody?.categoryBitMask = PhysicsCategory.player
+            ship.physicsBody?.contactTestBitMask = PhysicsCategory.enemyProjectile | PhysicsCategory.asteroid
+            
         } else {
             ship = Spaceship(imageNamed: "enemy")
+            ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
+            ship.physicsBody?.categoryBitMask = PhysicsCategory.enemy
+            ship.physicsBody?.contactTestBitMask = PhysicsCategory.playerProjectile | PhysicsCategory.asteroid
         }
+        ship.physicsBody?.collisionBitMask = 0
+        ship.physicsBody?.affectedByGravity = false
         ship.position = CGPoint(x: transform.x, y: transform.y)
     }
     
@@ -54,9 +65,7 @@ class Player: NetworkObject {
         let y = dir.dy / magnitude
         
         let position = CGPoint(x: transform.x + x * ship.size.width, y: transform.y + y * ship.size.height)
-        
-        print(position)
-        
+                
         var json = JSON()
         json["x"] = position.x
         json["y"] = position.y

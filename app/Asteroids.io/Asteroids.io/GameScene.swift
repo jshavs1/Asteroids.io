@@ -15,19 +15,15 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     var didTap = false
     var touchLocation: CGPoint = CGPoint(x: 0.0,y: 0.0)
     
-    struct PhysicsCategory {
-        static let none      : UInt32 = 0
-        static let all       : UInt32 = UInt32.max
-        static let asteroid  : UInt32 = 0b1       // 1
-        static let projectile: UInt32 = 0b10      // 2
-        static let player    : UInt32 = 0b1
-    }
-    
-    
-    
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         GameManager.delegate = self
+        
+        let background = SKSpriteNode(imageNamed: "sky2")
+        background.zPosition = -500
+        background.size.width = self.size.width
+        background.size.height = self.size.height / 2 + 300
+        addChild(background)
     }
     
     
@@ -44,19 +40,12 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     }
     
     func instantiate(object: NetworkObject, type: NetworkObjectType) {
-        
-        let background = SKSpriteNode(imageNamed: "sky2")
-        background.zPosition = -500
-        background.size.width = self.size.width
-        background.size.height = self.size.height / 2 + 300
-        addChild(background)
-        
         print("instantiating \(type.rawValue) in scene")
         switch type {
         case .player:
             let player = object as! Player
             player.ship.name = player.id
-            if (object.owner == SocketIOManager.socket.sid) {
+            if (player.isMine) {
                 Player.local = player
             }
 
@@ -64,11 +53,21 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             player.ship.physicsBody?.usesPreciseCollisionDetection = true
 
             addChild(player.ship)
+            break
         case .laser:
             let laser = object as! Laser
-            addChild(laser.node)
+            addChild(laser.node!)
             laser.shoot()
+            break
         }
+    }
+    
+    func destroy(object: NetworkObject) {
+        print("Destroying network object")
+        object.node?.removeAllActions()
+        object.node?.removeAllChildren()
+        object.node?.removeFromParent()
+        object.node = nil
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -93,6 +92,21 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         // Called before each frame is rendered
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node else { return }
+        
+        switch nodeA.physicsBody!.categoryBitMask {
+        case PhysicsCategory.playerProjectile:
+            if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.enemy) {
+                let nObjA = nodeA.userData!["networkObject"] as! NetworkObject
+                let nObjB = nodeB.userData!["networkObject"] as! NetworkObject
+                
+                NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
+            }
+            break
+        default:
+            print(nodeA.physicsBody!.categoryBitMask)
+        }
+        
+    }
 }
-
-let DegreesToRadians =  CFloat(Double.pi/180)

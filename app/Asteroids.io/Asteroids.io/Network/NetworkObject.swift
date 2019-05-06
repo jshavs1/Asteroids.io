@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class NetworkObject {
     let owner: String
@@ -18,7 +19,12 @@ class NetworkObject {
             }
         }
     }
-    var commandBuffer: CommandBuffer!
+    var node: SKNode? {
+        didSet {
+            node?.userData = NSMutableDictionary()
+            node?.userData!["networkObject"] = self
+        }
+    }
     
     init(json: JSON) {
         self.owner = json["owner"] as! String
@@ -30,7 +36,6 @@ class NetworkObject {
         self.owner = owner
         self.id = id
         self.transform = transform
-        self.commandBuffer = CommandBuffer(length: 125)
     }
     
     func transformWillChange(newTransform: NetworkTransform) {
@@ -43,7 +48,6 @@ class NetworkObject {
     
     var newCommand: Command {
         let command = Command(id: id)
-        commandBuffer.add(command: command)
         return command
     }
     

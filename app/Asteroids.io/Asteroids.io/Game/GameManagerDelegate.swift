@@ -10,4 +10,5 @@ import Foundation
 
 protocol GameManagerDelegate {
     func instantiate(object: NetworkObject, type: NetworkObjectType)
+    func destroy(object: NetworkObject)
 }

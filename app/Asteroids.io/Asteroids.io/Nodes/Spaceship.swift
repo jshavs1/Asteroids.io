@@ -12,18 +12,8 @@ import SpriteKit
 class Spaceship: SKSpriteNode {
     
     init(imageNamed: String) {
-        
         let texture = SKTexture(imageNamed: imageNamed)
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
-        //super.init(imageNamed: "player")
-        //self.imageNamed = "player"       //self.
-        //let rect = CGRect(x: 0, y: 0, width: 200, height: 200)
-        //self.path = CGPath(rect: rect, transform: nil)
-        
-        //self.fillColor = UIColor.blue
-        //self.strokeColor = UIColor.clear
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

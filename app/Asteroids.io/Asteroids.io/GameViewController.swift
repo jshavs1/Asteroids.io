@@ -15,14 +15,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var movementJoystick: Joystick!
     @IBOutlet weak var fireJoystick: Joystick!
     @IBOutlet weak var pingLabel: UILabel!
-
-    struct PhysicsCategory {
-        static let none      : UInt32 = 0
-        static let all       : UInt32 = UInt32.max
-        static let asteroid  : UInt32 = 0b1
-        static let projectile: UInt32 = 0b10
-        static let player    : UInt32 = 0b1
-    }
     var myScene: GameScene!
 
     override func viewDidLoad() {
@@ -101,7 +93,4 @@ class GameViewController: UIViewController {
             myScene.didTap = false
         }
     }
-
-
-
 }
