@@ -5,6 +5,9 @@ if (process.env.NODE_ENV == 'production') {
     host = 'http://trufflepig.herokuapp.com';
 }
 
+//Room config
+roomSize = 2;
+
 //Simulation config
 var deltaTime = Math.floor(1000 / 10);
 var deltaTimeSeconds = deltaTime / 1000;
@@ -13,6 +16,7 @@ var serverFrameBuffer = 2;
 module.exports = {
     port: port,
     host: host,
+    roomSize: roomSize,
     deltaTime: deltaTime,
     deltaTimeSeconds: deltaTimeSeconds,
     serverFrameBuffer: serverFrameBuffer

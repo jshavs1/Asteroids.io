@@ -39,19 +39,39 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYK-3f-0Ko" userLabel="Joystick" customClass="Joystick" customModule="Asteroids_io" customModuleProvider="target">
+                                <rect key="frame" x="664" y="225" width="148" height="148"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mYK-3f-0Ko" secondAttribute="height" multiplier="1:1" id="FKZ-9U-ie7"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="joystickColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="offset">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ijQ-nU-8DV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4qk-I5-YsI" secondAttribute="leading" symbolic="YES" id="I8X-QV-hIC"/>
                             <constraint firstItem="ECx-iL-RbM" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="40" id="KnY-0O-YhJ"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="mYK-3f-0Ko" secondAttribute="bottom" constant="20" id="OVI-u6-pI4"/>
+                            <constraint firstItem="mYK-3f-0Ko" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="225" id="Soi-zT-izd"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="ECx-iL-RbM" secondAttribute="bottom" constant="20" id="TsL-c4-bWL"/>
                             <constraint firstItem="ijQ-nU-8DV" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="20" id="Uvo-dw-2b5"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="mYK-3f-0Ko" secondAttribute="trailing" constant="40" id="gNR-8X-jqS"/>
                             <constraint firstItem="ECx-iL-RbM" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="225" id="nSf-fs-hPU"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="ijQ-nU-8DV" secondAttribute="trailing" constant="28" id="ztS-zQ-Ka8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <connections>
-                        <outlet property="joystick" destination="ECx-iL-RbM" id="KuK-dT-zRC"/>
+                        <outlet property="fireJoystick" destination="mYK-3f-0Ko" id="OZa-Jr-Saq"/>
+                        <outlet property="movementJoystick" destination="ECx-iL-RbM" id="kdX-gi-46e"/>
                         <outlet property="pingLabel" destination="ijQ-nU-8DV" id="pFQ-yp-6vh"/>
                     </connections>
                 </viewController>

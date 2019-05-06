@@ -20,3 +20,6 @@ var host: String? {
 }
 
 var deltaTime: TimeInterval = floor(10.0/1000.0)
+
+let playerCategoryMask: uint = 0x1 << 1
+let enemyCategoryMask: uint = 0x1 << 2

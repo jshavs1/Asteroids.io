@@ -45,11 +45,11 @@ module.exports = class Room {
     }
 
     get isFull() {
-        return Object.keys(this.players).length == 2;
+        return Object.keys(this.players).length == config.roomSize;
     }
 
     get isOpen() {
-        return Object.keys(this.players).length < 2;
+        return Object.keys(this.players).length < config.roomSize;
     }
 
     get isEmpty() {

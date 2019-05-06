@@ -31,7 +31,6 @@ class Joystick: UIView {
             return bounds.width / 2
         }
     }
-    
     var x: CGFloat {
         get {
             return ((currentPoint?.x ?? 0) / radius).roundTo(places: 2)
@@ -40,6 +39,11 @@ class Joystick: UIView {
     var y: CGFloat {
         get {
             return (-(currentPoint?.y ?? 0) / radius).roundTo(places: 2)
+        }
+    }
+    var magnitude: CGFloat {
+        get {
+            return sqrt(x*x + y*y)
         }
     }
     

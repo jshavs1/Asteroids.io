@@ -49,6 +49,7 @@ class SocketIOManager {
         // the server.
         _socket.on(clientEvent: .connect) { (data, ack) in
             print("Socket connected to host")
+            self.ping()
         }
         _socket.on(clientEvent: .disconnect) { (data, ack) in
             print("Socket disconnected")
@@ -77,13 +78,18 @@ class SocketIOManager {
             
             GameManager.update(object: object)
         }
+        _socket.on("destroy") { (data, ack) in
+            let json = data[0] as! JSON
+            let id = json["id"] as! String
+            GameManager.destroy(id: id)
+        }
         
         print("Socket ready")
         _socket.connect()
     }
     
     func ping() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.pingTime = Date().timeIntervalSince1970 * 1000
             self._socket.emit("myping")
         })

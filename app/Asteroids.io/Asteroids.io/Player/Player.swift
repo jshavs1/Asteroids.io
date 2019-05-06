@@ -27,4 +27,20 @@ class Player: NetworkObject {
         let translate = SKAction.move(to: newTransform.position, duration: deltaTime)
         ship.run(translate)
     }
+    
+    func shoot(dir: CGVector) {
+        let magnitude = sqrt(dir.dx * dir.dx + dir.dy * dir.dy)
+        let x = dir.dx / magnitude
+        let y = dir.dy / magnitude
+        
+        let position = CGPoint(x: transform.x + cos(x) * ship.frame.size.width, y: transform.y + sin(y) * ship.frame.size.width)
+        
+        var json = JSON()
+        json["x"] = position.x
+        json["y"] = position.y
+        json["dx"] = dir.dx
+        json["dy"] = dir.dy
+        
+        NetworkManager.instantiate(type: .laser, data: json)
+    }
 }

@@ -21,17 +21,21 @@ class NetworkManager {
     
     init() {}
     
-    static func instantiate(type: NetworkObjectType) {
+    static func instantiate(type: NetworkObjectType, data: JSON? = nil) {
         print("Requesting instantiation of \(type.rawValue)")
-        NetworkManager.default.instantiate(type: type)
+        NetworkManager.default.instantiate(type: type, data: data)
     }
-    func instantiate(type: NetworkObjectType) {
+    func instantiate(type: NetworkObjectType, data: JSON? = nil) {
         switch type {
         case .player:
-            SocketIOManager.socket.emit("instantiate", Instantiate(type: .player))
+            SocketIOManager.socket.emit("instantiate", Instantiate(type: .player, data: data))
         default:
             break
         }
+    }
+    
+    static func destroy(object: NetworkObject) {
+        SocketIOManager.socket.emit("destroy", object.newCommand)
     }
     
     static func update(command: Command) {

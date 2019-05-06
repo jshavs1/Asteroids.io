@@ -10,9 +10,10 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController, GameManagerDelegate {
+class GameViewController: UIViewController {
     
-    @IBOutlet weak var joystick: Joystick!
+    @IBOutlet weak var movementJoystick: Joystick!
+    @IBOutlet weak var fireJoystick: Joystick!
     @IBOutlet weak var pingLabel: UILabel!
     
     override func viewDidLoad() {
@@ -20,7 +21,6 @@ class GameViewController: UIViewController, GameManagerDelegate {
         
         GameManager.onUpdate += self.onUpdate
         SocketIOManager.default.onLatency += self.onLatency
-        SocketIOManager.default.ping()
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -57,8 +57,8 @@ class GameViewController: UIViewController, GameManagerDelegate {
     
     func onUpdate(frame: Int) {
         if let player = Player.local {
-            let x = joystick.x * player.speed * CGFloat(deltaTime)
-            let y = joystick.y * player.speed * CGFloat(deltaTime)
+            let x = movementJoystick.x * player.speed * CGFloat(deltaTime)
+            let y = movementJoystick.y * player.speed * CGFloat(deltaTime)
             let pos = CGPoint(x: player.transform.x + x, y: player.transform.y + y)
             
             player.transform.position = pos

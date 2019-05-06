@@ -37,6 +37,10 @@ class NetworkObject {
         return
     }
     
+    func destroy() {
+        NetworkManager.destroy(object: self)
+    }
+    
     var newCommand: Command {
         let command = Command(id: id)
         commandBuffer.add(command: command)

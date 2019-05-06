@@ -9,10 +9,12 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene, GameManagerDelegate {
+class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
+        self.physicsWorld.contactDelegate = self
         GameManager.delegate = self
+        
     }
     
     
@@ -38,10 +40,12 @@ class GameScene: SKScene, GameManagerDelegate {
                 Player.local = player
             }
             addChild(player.ship)
+        case .laser:
+            let laser = object as! Laser
+            addChild(laser.node)
         default:
             break
         }
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

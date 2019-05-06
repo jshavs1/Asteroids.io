@@ -10,14 +10,4 @@ import Foundation
 
 protocol GameManagerDelegate {
     func instantiate(object: NetworkObject, type: NetworkObjectType)
-    func onUpdate(frame: Int)
-}
-
-extension GameManagerDelegate {
-    func instantiate(object: NetworkObject, type: NetworkObjectType) {
-        return
-    }
-    func onUpdate(frame: Int) {
-        return
-    }
 }

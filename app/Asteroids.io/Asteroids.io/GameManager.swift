@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class GameManager {
     static var _default: GameManager?
@@ -90,12 +91,21 @@ class GameManager {
         switch response.type {
         case .player:
             object = Player(owner: response.owner, id: response.id, transform: response.transform)
-        default:
-            break
+        case .laser:
+            let dir = CGVector(dx: response.data!["dx"] as! Double, dy: response.data!["dy"] as! Double)
+            object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
         }
         
         GameManager.default.objects[object.id] = object
         delegate?.instantiate(object: object, type: response.type)
+    }
+    
+    static func destroy(id: String) {
+        GameManager.default.destroy(id: id)
+    }
+    
+    func destroy(id: String) {
+        self.objects.removeValue(forKey: id)
     }
     
     static func findObject(id: String) -> NetworkObject? {

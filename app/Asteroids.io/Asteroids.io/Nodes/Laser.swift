@@ -9,18 +9,49 @@
 import Foundation
 import SpriteKit
 
-class Bullet: SKShapeNode {
+class Laser: NetworkObject {
     
-    override init() {
-        super.init()
+    var node: SKShapeNode
+    var direction: CGVector
+    var velocity: CGVector!
+    static let speed: CGFloat = 2000
+    
+    override init(owner: String, id: String, transform: NetworkTransform) {
+        self.node = SKShapeNode()
+        self.direction = CGVector.zero
+        self.velocity = CGVector.zero
+        super.init(owner: owner, id: id, transform: transform)
+        setupNode()
+    }
+    
+    init(owner: String, id: String, transform: NetworkTransform, direction: CGVector) {
+        self.node = SKShapeNode()
+        self.direction = direction
+        self.velocity = CGVector(dx: cos(direction.dx) * Laser.speed * CGFloat(deltaTime), dy: sin(direction.dy) * Laser.speed * CGFloat(deltaTime))
+        super.init(owner: owner, id: id, transform: transform)
+        setupNode()
+    }
+    
+    func setupNode() {
         let rect = CGRect(x: 0, y: 0, width: 20, height: 100)
-        self.path = CGPath(rect: rect, transform: nil)
-        self.fillColor = UIColor.orange
-        self.strokeColor = UIColor.clear
+        node.path = CGPath(rect: rect, transform: nil)
+        node.physicsBody = SKPhysicsBody(rectangleOf: rect.size)
+        node.physicsBody!.categoryBitMask = isMine ? playerCategoryMask : enemyCategoryMask
+        node.physicsBody!.contactTestBitMask = isMine ? enemyCategoryMask : playerCategoryMask
+        node.fillColor = UIColor.orange
+        node.strokeColor = UIColor.clear
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    func shoot() {
+        guard node.scene != nil else { return }
+        let action = SKAction.move(by: self.velocity, duration: deltaTime)
+        node.run(action) {
+            self.shoot()
+        }
     }
     
+    override func transformWillChange(newTransform: NetworkTransform) {
+        let action = SKAction.move(to: newTransform.position, duration: deltaTime)
+        node.run(action)
+    }
 }
