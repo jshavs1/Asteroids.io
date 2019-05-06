@@ -7,7 +7,7 @@ module.exports = class Room {
     constructor() {
         this.id = uuid();
         this.players = {};
-        this.simulation = new GameSimulation(this.id);
+        this.simulation = new GameSimulation(this);
     }
 
     addPlayer(player) {
@@ -62,5 +62,23 @@ module.exports = class Room {
 
     update(command) {
         this.simulation.update(command);
+    }
+
+    hit(hit) {
+        this.simulation.hit(hit);
+    }
+
+    destroy(id) {
+        this.simulation.destroy(id);
+    }
+
+    gameOver(loser) {
+        console.log("Game over");
+        var winner;
+        for (var key in this.players) {
+            var player = this.players[key];
+            if (loser != player.id) { winner = player; }
+        }
+        server.io.to(this.id).emit('gameOver', winner);
     }
 }

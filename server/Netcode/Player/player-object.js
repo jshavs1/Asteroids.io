@@ -2,6 +2,11 @@ var NetworkObject = require('../NetworkObject/network-object');
 var config = require('../../config');
 
 module.exports = class PlayerObject extends NetworkObject {
+    constructor(owner) {
+        super(owner);
+        this.health = 10;
+    }
+
     update(command) {
         this.apply(command)
     }
@@ -18,5 +23,13 @@ module.exports = class PlayerObject extends NetworkObject {
         var dy = -command.actions.y;
         this.transform.setPosition(this.transform.position.x + dx,
                                 this.transform.position.y + dy);
+    }
+
+    get isDead() {
+        return this.health <= 0;
+    }
+
+    takeHit() {
+        this.health -= 1;
     }
 }

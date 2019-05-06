@@ -25,6 +25,12 @@ io.on('connect', function (socket) {
     socket.on('update', function(command) {
         RoomManager.rooms[socket.roomId].update(command);
     });
+    socket.on('hit', function(hit) {
+        RoomManager.rooms[socket.roomId].hit(hit);
+    });
+    socket.on('destroy', function(id) {
+        RoomManager.rooms[socket.roomId].destroy(id);
+    });
 });
 
 

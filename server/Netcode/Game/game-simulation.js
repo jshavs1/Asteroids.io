@@ -4,10 +4,10 @@ var PlayerObject = require('../Player/player-object');
 var LaserObject = require('../Laser/laser-object');
 
 class GameSimulation {
-    constructor(roomId) {
+    constructor(room) {
         this.width = 4000;
         this.height = 4000;
-        this.roomId = roomId;
+        this.room = room;
         this.networkObjects = {};
     }
 
@@ -15,7 +15,7 @@ class GameSimulation {
         var object;
         if (object = this.networkObjects[command.id]) {
             object.update(command);
-            server.io.to(this.roomId).emit('update', object.getState());
+            server.io.to(this.room.id).emit('update', object.getState());
         }
     }
 
@@ -31,11 +31,11 @@ class GameSimulation {
     }
 
     broadcastState() {
-        server.io.to(this.roomId).emit('state', this.packageState());
+        server.io.to(this.room.id).emit('state', this.packageState());
     }
 
     instantiate(socket, details) {
-        console.log('emitting instantiate to ' + this.roomId);
+        console.log('emitting instantiate to ' + this.room.id);
         var object;
         var data;
                 switch(details.type) {
@@ -58,7 +58,7 @@ class GameSimulation {
 
         if (typeof object !== 'undefined') {
             this.networkObjects[object.id] = object;
-            server.io.to(this.roomId).emit('instantiate',
+            server.io.to(this.room.id).emit('instantiate',
             {
                 owner: details.owner,
                 type: details.type,
@@ -67,6 +67,35 @@ class GameSimulation {
                 data: data
             });
         }
+    }
+
+    hit(hit) {
+        console.log("Hit received");
+        var A, B;
+        if (!(A = this.networkObjects[hit.A]) ||
+            !(B = this.networkObjects[hit.B])) { return; }
+
+        switch(hit.typeB) {
+            case 'player':
+                if (hit.typeA == 'laser') {
+                    B.takeHit();
+                    if (B.isDead) { this.room.gameOver(B.owner); }
+                    this.destroy(A.id);
+                    server.io.to(this.room.id).emit('hit', hit);
+                }
+                break;
+            default:
+                console.log(hit);
+                break;
+        }
+    }
+
+    destroy(id) {
+        var object;
+        if (!(object = this.networkObjects[id])) { return; }
+
+        delete this.networkObjects[id];
+        server.io.to(this.room.id).emit('destroy', {id: id});
     }
 
     enqueueCommand(command) {
