@@ -35,8 +35,8 @@ class Player: NetworkObject {
     // Rotates the spaceship with its motion
     override func transformWillChange(newTransform: NetworkTransform) {
         
-        let myX = ship.position.x - newTransform.position.x
-        let myY = ship.position.y - newTransform.position.y
+        let myX = transform.x - newTransform.position.x
+        let myY = transform.y - newTransform.position.y
         directionY = myY
         directionX = myX
         
@@ -53,7 +53,7 @@ class Player: NetworkObject {
         let x = dir.dx / magnitude
         let y = dir.dy / magnitude
         
-        let position = CGPoint(x: transform.x - x * ship.frame.size.width, y: transform.y - y * ship.frame.size.width)
+        let position = CGPoint(x: transform.x + x * ship.size.width, y: transform.y + y * ship.size.height)
         
         print(position)
         

@@ -34,8 +34,9 @@ class Laser: NetworkObject {
     }
     
     func setupNode() {
-        let rect = CGRect(x: self.transform.x, y: self.transform.y, width: 20, height: 100)
+        let rect = CGRect(x: 0, y: 0, width: 20, height: 100)
         node.position = transform.position
+        node.zRotation = atan2(direction.dy, direction.dx) + CGFloat(90 * DegreesToRadians)
         node.path = CGPath(rect: rect, transform: nil)
         node.physicsBody = SKPhysicsBody(rectangleOf: rect.size)
         node.physicsBody!.affectedByGravity = false
@@ -48,7 +49,7 @@ class Laser: NetworkObject {
     func shoot() {
         
         guard node.scene != nil else { return }
-        let action = SKAction.move(by: self.velocity, duration: deltaTime)
+        let action = SKAction.move(to: CGPoint(x: node.position.x + velocity.dx, y: node.position.y + velocity.dy), duration: deltaTime)
         node.run(action) {
             self.shoot()
         }
