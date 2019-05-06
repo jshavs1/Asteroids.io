@@ -26,14 +26,10 @@ class Player: NetworkObject {
         // Selects which sprite to use for the spaceships
         if isMine {
             ship = Spaceship(imageNamed: "player")
-            NSLog("Our Ship: Player")
         } else {
             ship = Spaceship(imageNamed: "enemy")
-            NSLog("Our Ship: Enemy")
         }
-        //ship = Spaceship()
         ship.position = CGPoint(x: transform.x, y: transform.y)
-        //ship.fillColor = isMine ? UIColor.cyan : UIColor.red
     }
     
     // Rotates the spaceship with its motion
@@ -57,7 +53,9 @@ class Player: NetworkObject {
         let x = dir.dx / magnitude
         let y = dir.dy / magnitude
         
-        let position = CGPoint(x: transform.x + cos(x) * ship.frame.size.width, y: transform.y + sin(y) * ship.frame.size.width)
+        let position = CGPoint(x: transform.x - x * ship.frame.size.width, y: transform.y - y * ship.frame.size.width)
+        
+        print(position)
         
         var json = JSON()
         json["x"] = position.x

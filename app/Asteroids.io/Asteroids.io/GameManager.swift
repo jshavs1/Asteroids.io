@@ -92,18 +92,8 @@ class GameManager {
         case .player:
             object = Player(owner: response.owner, id: response.id, transform: response.transform)
         case .laser:
-            NSLog("Making Laser")
             let dir = CGVector(dx: response.data!["dx"] as! Double, dy: response.data!["dy"] as! Double)
-            //NSLog("\(response.data)")
-            let playerPoint = CGPoint(x: response.data!["x"] as! Double, y: response.data!["y"] as! Double)
-            let touchedPoint = CGPoint(x: response.data!["dx"] as! Double, y: response.data!["dy"] as! Double)
-            
-            
-            // 9 - Create the actions
-            //let actionMove = SKAction.move(to: realDest, duration: 1.0)
-            //let actionMoveDone = SKAction.removeFromParent()
-            //object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
-            object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir, point: touchedPoint, toPoint: playerPoint)
+            object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
         }
         
         GameManager.default.objects[object.id] = object

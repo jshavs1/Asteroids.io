@@ -30,11 +30,7 @@ class NetworkManager {
         case .player:
             SocketIOManager.socket.emit("instantiate", Instantiate(type: .player, data: data))
         case .laser:
-            NSLog("Instantiating Laser ")
             SocketIOManager.socket.emit("instantiate", Instantiate(type: .laser, data: data))
-        default:
-            NSLog("Default INstantiation in NetworkManager")
-            break
         }
     }
 

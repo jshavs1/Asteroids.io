@@ -23,24 +23,20 @@ class GameViewController: UIViewController {
         static let projectile: UInt32 = 0b10
         static let player    : UInt32 = 0b1
     }
-    //var myScene: SKScene
+    var myScene: GameScene!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //GameScene.viewController = self
-
-
 
         GameManager.onUpdate += self.onUpdate
         SocketIOManager.default.onLatency += self.onLatency
 
 
-
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
 
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = GameScene(fileNamed: "GameScene") {
+                myScene = scene
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 //scene.viewController = self
@@ -83,6 +79,8 @@ class GameViewController: UIViewController {
             command.addAction(action: "x", value: x)
             command.addAction(action: "y", value: y)
             NetworkManager.update(command: command)
+            
+            shoot()
         }
     }
 
@@ -90,7 +88,19 @@ class GameViewController: UIViewController {
         self.pingLabel.text = "Ping: \(latency.rounded())"
         SocketIOManager.default.ping()
     }
-
+    
+    func shoot() {
+        if (myScene.didTap){
+            var direction = myScene.touchLocation
+            direction.x -= Player.local!.transform.x
+            direction.y -= Player.local!.transform.y
+            direction = direction.normalized()
+            
+            Player.local?.shoot(dir: CGVector(dx: direction.x, dy: direction.y))
+            
+            myScene.didTap = false
+        }
+    }
 
 
 
