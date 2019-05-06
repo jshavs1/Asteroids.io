@@ -18,9 +18,9 @@ class NetworkManager {
             return _default!
         }
     }
-    
+
     init() {}
-    
+
     static func instantiate(type: NetworkObjectType, data: JSON? = nil) {
         print("Requesting instantiation of \(type.rawValue)")
         NetworkManager.default.instantiate(type: type, data: data)
@@ -33,11 +33,11 @@ class NetworkManager {
             break
         }
     }
-    
+
     static func destroy(object: NetworkObject) {
         SocketIOManager.socket.emit("destroy", object.newCommand)
     }
-    
+
     static func update(command: Command) {
         SocketIOManager.socket.emit("update", command)
     }

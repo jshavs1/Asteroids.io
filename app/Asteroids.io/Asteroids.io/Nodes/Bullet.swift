@@ -1,19 +1,19 @@
 //
-//  Spaceship.swift
+//  Bullet.swift
 //  Asteroids.io
 //
-//  Created by Tony on 4/23/19.
+//  Created by user915547 on 5/4/19.
 //  Copyright © 2019 cmsc436. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 
-class Spaceship: SKSpriteNode {
+class Bullet: SKSpriteNode {
     
-    init(imageNamed: String) {
+    init() {
         
-        let texture = SKTexture(imageNamed: imageNamed)
+        let texture = SKTexture(imageNamed: "bolt")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         //super.init(imageNamed: "player")
         //self.imageNamed = "player"       //self.
@@ -25,6 +25,7 @@ class Spaceship: SKSpriteNode {
         
         
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
