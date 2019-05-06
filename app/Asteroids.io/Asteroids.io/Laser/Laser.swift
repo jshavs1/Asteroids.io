@@ -58,9 +58,7 @@ class Laser: NetworkObject {
     
     override func transformWillChange(newTransform: NetworkTransform) {
         if (!(self.node!.scene!.intersects(self.node!))) {
-            print("Here")
             NetworkManager.destroy(object: self)
-            self.node!.removeAllActions()
         }
     }
 }

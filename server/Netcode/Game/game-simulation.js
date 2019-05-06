@@ -34,6 +34,14 @@ class GameSimulation {
         server.io.to(this.room.id).emit('state', this.packageState());
     }
 
+    removeObjectsFromOwner(owner) {
+        for (var key in this.networkObjects) {
+            if (this.networkObjects[key].owner == owner) {
+                this.destroy(key);
+            }
+        }
+    }
+
     instantiate(socket, details) {
         console.log('emitting instantiate to ' + this.room.id);
         var object;
@@ -81,7 +89,7 @@ class GameSimulation {
                     B.takeHit();
                     if (B.isDead) { this.room.gameOver(B.owner); }
                     this.destroy(A.id);
-                    server.io.to(this.room.id).emit('hit', hit);
+                    server.io.to(B.id).emit('hit', hit);
                 }
                 break;
             default:

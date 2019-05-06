@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GameSceneDelegate {
 
     @IBOutlet weak var movementJoystick: Joystick!
     @IBOutlet weak var fireJoystick: Joystick!
@@ -29,11 +29,8 @@ class GameViewController: UIViewController {
 
             if let scene = GameScene(fileNamed: "GameScene") {
                 myScene = scene
-                // Set the scale mode to scale to fit the window
+                scene.gameSceneDelegate = self
                 scene.scaleMode = .aspectFill
-                //scene.viewController = self
-                //myScene = (GameScene) scene
-                // Present the scene
                 view.presentScene(scene)
             }
 
@@ -92,5 +89,14 @@ class GameViewController: UIViewController {
             
             myScene.didTap = false
         }
+    }
+    
+    func gameOver(loser: String) {
+        let title = Player.local!.owner == loser ? "You lost" : "You won!"
+        let messege = Player.local!.owner == loser ? "Better luck next time!" : "Congratulations!"
+        let ac = UIAlertController(title: title, message: messege, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        present(ac, animated: true, completion: nil)
     }
 }

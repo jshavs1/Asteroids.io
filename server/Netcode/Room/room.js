@@ -28,6 +28,8 @@ module.exports = class Room {
         delete player.roomId;
         player.leave(this.id);
 
+        this.simulation.removeObjectsFromOwner(player.id);
+
         if (this.isEmpty) {
             delete this.simulation;
         }
@@ -74,11 +76,6 @@ module.exports = class Room {
 
     gameOver(loser) {
         console.log("Game over");
-        var winner;
-        for (var key in this.players) {
-            var player = this.players[key];
-            if (loser != player.id) { winner = player; }
-        }
-        server.io.to(this.id).emit('gameOver', winner);
+        server.io.to(this.id).emit('gameOver', {loser: loser});
     }
 }

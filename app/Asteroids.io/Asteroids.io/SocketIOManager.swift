@@ -84,13 +84,16 @@ class SocketIOManager {
             
             GameManager.hit(hit: hit)
         }
-        
         _socket.on("destroy") { (data, ack) in
             let json = data[0] as! JSON
             let id = json["id"] as! String
             GameManager.destroy(id: id)
         }
-        
+        _socket.on("gameOver") { (data, ack) in
+            let json = data[0] as! JSON
+            let loser = json["loser"] as! String
+            GameManager.gameOver(loser: loser)
+        }
         print("Socket ready")
         _socket.connect()
     }

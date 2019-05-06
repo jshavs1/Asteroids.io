@@ -14,6 +14,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     var isPlayerThere = false
     var didTap = false
     var touchLocation: CGPoint = CGPoint(x: 0.0,y: 0.0)
+    var gameSceneDelegate: GameSceneDelegate?
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
@@ -70,6 +71,10 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         object.node = nil
     }
     
+    func gameOver(loser: String) {
+        gameSceneDelegate?.gameOver(loser: loser)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.touchDown(atPoint: (touches.first?.location(in: self))!)
     }
@@ -105,7 +110,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             }
             break
         default:
-            print(nodeA.physicsBody!.categoryBitMask)
+            break
         }
         
     }

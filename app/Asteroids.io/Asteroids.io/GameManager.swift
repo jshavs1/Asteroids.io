@@ -41,11 +41,13 @@ class GameManager {
     var loop: Timer!
     public var frame: Int
     private var objects: [String : NetworkObject]
+    var isOver: Bool
     
     init() {
         self.frame = 0
         self.objects = [String : NetworkObject]()
         self._onUpdate = Event()
+        self.isOver = false
     }
     
     static func synchronizedStart(at: UInt64) {
@@ -74,10 +76,6 @@ class GameManager {
         })
     }
     
-    func update() {
-        self._onUpdate.invoke(t: self.frame)
-    }
-    
     static func stop() {
         GameManager.default.stop()
     }
@@ -86,7 +84,21 @@ class GameManager {
         self.frame = 0
     }
     
+    func update() {
+        if (isOver) {return}
+        self._onUpdate.invoke(t: self.frame)
+    }
+    static func update(object: NetworkObject){
+        if let localObj = GameManager.default.objects[object.id] {
+            localObj.transform = object.transform
+        }
+    }
+    
     static func instantiate(response: InstantiateResponse) {
+        GameManager.default.instantiate(response: response)
+    }
+    func instantiate(response: InstantiateResponse) {
+        if (isOver) {return}
         var object: NetworkObject!
         switch response.type {
         case .player:
@@ -98,36 +110,35 @@ class GameManager {
             break
         }
         
-        GameManager.default.objects[object.id] = object
-        delegate?.instantiate(object: object, type: response.type)
+        objects[object.id] = object
+        _delegate?.instantiate(object: object, type: response.type)
     }
     
     static func destroy(id: String) {
         GameManager.default.destroy(id: id)
     }
-    
     func destroy(id: String) {
         if let networkObject = self.objects.removeValue(forKey: id) {
             GameManager.delegate?.destroy(object: networkObject)
         }
     }
     
+    static func gameOver(loser: String) {
+        GameManager.default.isOver = true
+        GameManager.delegate?.gameOver(loser: loser)
+        GameManager.stop()
+    }
+    
     static func hit(hit: Hit) {
         GameManager.default.hit(hit: hit)
     }
-    
     func hit(hit: Hit) {
+        if (isOver) { return }
         print("Hit messege received")
     }
     
     static func findObject(id: String) -> NetworkObject? {
         return GameManager.default.objects[id]
-    }
-    
-    static func update(object: NetworkObject){
-        if let localObj = GameManager.default.objects[object.id] {
-            localObj.transform = object.transform
-        }
     }
     
 }
