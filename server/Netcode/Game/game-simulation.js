@@ -8,14 +8,47 @@ class GameSimulation {
     constructor(room) {
         this.room = room;
         this.networkObjects = {};
+        this.player1 = null;
+        this.player2 = null;
+        this.inProgress = false;
+    }
+
+    addPlayer(player) {
+        if (!this.player1) {
+            this.player1 = player;
+        }
+        else if (!this.player2) {
+            this.player2 = player;
+        }
+    }
+
+    instantiatePlayers() {
+        var details = {
+            type: 'player',
+            data: {
+                y: 0,
+            },
+        };
+
+        details.owner = this.player1.id;
+        details.data.x = -config.mapWidth / 2 + 200;
+        this.instantiate(this.player1, details);
+
+        details.owner = this.player2.id;
+        details.data.x = details.data.x = config.mapWidth / 2 - 200;
+        this.instantiate(this.player2, details);
+        
     }
 
     start() {
+        this.inProgress = true;
         this.generateAsteroids();
     }
 
     stop() {
-        clearTimeout(this.timer);
+        if (this.inProgress) {
+            clearTimeout(this.timer);
+        }
     }
 
     update(command) {
@@ -74,7 +107,7 @@ class GameSimulation {
             switch(details.type) {
             case 'player':
                 object = new PlayerObject(socket.id);
-                object.transform.setPosition(0, 0);
+                object.transform.setPosition(details.data.x, details.data.y);
                 break;
             case 'laser':
                 object = new LaserObject(socket.id);

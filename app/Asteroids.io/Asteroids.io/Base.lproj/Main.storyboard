@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECx-iL-RbM" userLabel="Joystick" customClass="Joystick" customModule="Asteroids_io" customModuleProvider="target">
+                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECx-iL-RbM" userLabel="Joystick" customClass="Joystick" customModule="Asteroids_io" customModuleProvider="target">
                                 <rect key="frame" x="84" y="225" width="148" height="148"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -39,7 +39,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYK-3f-0Ko" userLabel="Joystick" customClass="Joystick" customModule="Asteroids_io" customModuleProvider="target">
+                            <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYK-3f-0Ko" userLabel="Joystick" customClass="Joystick" customModule="Asteroids_io" customModuleProvider="target">
                                 <rect key="frame" x="664" y="225" width="148" height="148"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

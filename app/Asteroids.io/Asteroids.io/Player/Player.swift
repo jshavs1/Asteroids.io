@@ -74,9 +74,9 @@ class Player: NetworkObject {
         directionY = myY
         directionX = myX
         
-        let angle = atan2(myY, myX)
-        myAngle = angle
-        ship.zRotation = angle + CGFloat(90 * DegreesToRadians)
+        let angle = atan2(myY, myX) + 90 * CGFloat(DegreesToRadians)
+        
+        let rotate = SKAction.rotate(toAngle: angle, duration: deltaTime, shortestUnitArc: true)
         
         if (transform.dist(to: newTransform) < 100.0) {
             let translate = SKAction.move(to: newTransform.position, duration: deltaTime)
@@ -86,6 +86,8 @@ class Player: NetworkObject {
             ship.removeAllActions()
             ship.position = newTransform.position
         }
+        
+        ship.run(rotate)
     }
     
     func move(x: CGFloat, y: CGFloat) {

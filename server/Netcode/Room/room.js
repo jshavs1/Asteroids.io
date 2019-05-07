@@ -2,6 +2,7 @@ var uuid = require('uuid/v1');
 var server = require('../../server');
 var config = require('../../config');
 const GameSimulation = require('../Game/game-simulation');
+var RoomManager = require('./room-manager');
 
 module.exports = class Room {
     constructor() {
@@ -23,39 +24,33 @@ module.exports = class Room {
 
         console.log('Adding player '+player.id+' to room '+this.id);
 
+        this.simulation.addPlayer(player);
+
         if (this.isFull) {
-            this.synchronizedStart();
+            this.startGame();
         }
     }
 
-    removePlayer(player) {
-        delete this.players[player.id];
-        delete player.roomId;
-        player.leave(this.id);
+    playerDisconnected(player) {
+        this.simulation.stop();
+        this.gameOver(player.id);
 
-        if (this.masterClient == player.id) {
-            if (!this.isEmpty) {
-                this.masterClient = Object.values(this.players)[0].id;
-            }
-        }
-
-        this.simulation.removeObjectsFromOwner(player.id);
-
-        if (this.isEmpty) {
-            this.simulation.stop();
-            delete this.simulation;
+        if (this.startTimeout) {
+            clearTimeout(this.startTimeout);
+            this.startTimeout = null;
         }
 
         console.log('Removing player '+player.id+' from room '+this.id);
     }
 
-    synchronizedStart() {
+    startGame() {
         var startTime = Date.now();
-        startTime += 3000;
+        startTime += 5000;
 
         server.io.to(this.id).emit('start', {time: startTime, deltaTime: config.deltaTime});
+        this.simulation.instantiatePlayers();
 
-        setTimeout(() => { this.simulation.start(); }, (startTime - Date.now()));
+        this.startTimeout = setTimeout(() => { this.simulation.start(); }, (startTime - Date.now()));
         console.log('Starting game in ' + (startTime - Date.now()));
     }
 
@@ -89,7 +84,7 @@ module.exports = class Room {
 
     gameOver(loser) {
         console.log("Game over");
-        this.simulation.stop();
         server.io.to(this.id).emit('gameOver', {loser: loser});
+        console.log(RoomManager);
     }
 }

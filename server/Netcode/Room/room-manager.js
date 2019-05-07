@@ -1,4 +1,4 @@
-const Room = require('./room');
+var Room = require('./room');
 
 class RoomManager {
     static createRoom() {
@@ -25,14 +25,21 @@ class RoomManager {
     static leaveRoom(player, roomId) {
         var room = RoomManager.rooms[roomId];
         if (room) {
-            room.removePlayer(player);
+            room.playerDisconnected(player);
         }
-        RoomManager.roomListUpdated();
     }
     static addPlayerToQueue(socket) {
         console.log('Adding player ' + socket.id + ' to queue');
         RoomManager.playerQueue.push(socket);
         RoomManager.flushPlayerQueue();
+    }
+    static closeRoom(room) {
+        for (var key in room.players) {
+            delete room.players[key].roomId;
+            room.players[key].leave(room.id);
+        }
+        delete RoomManager.rooms[room.id];
+        console.log('Closing room '+room.id);
     }
     static roomListUpdated() {
         console.log('Room list updated');

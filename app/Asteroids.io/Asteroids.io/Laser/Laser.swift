@@ -13,7 +13,7 @@ class Laser: NetworkObject {
     
     var direction: CGVector
     var velocity: CGVector!
-    static let speed: CGFloat = 2000
+    static let speed: CGFloat = 2500
     
     override init(owner: String, id: String, transform: NetworkTransform) {
         self.direction = CGVector.zero
@@ -33,7 +33,7 @@ class Laser: NetworkObject {
     func setupNode() {
         self.node = SKShapeNode()
         guard let node = self.node as? SKShapeNode else { return }
-        let rect = CGRect(x: 0, y: 0, width: 5, height: 50)
+        let rect = CGRect(x: 0, y: 0, width: 8, height: 50)
         node.position = transform.position
         node.zRotation = atan2(direction.dy, direction.dx) + CGFloat(90 * DegreesToRadians)
         node.path = CGPath(rect: rect, transform: nil)
@@ -43,8 +43,8 @@ class Laser: NetworkObject {
         node.physicsBody!.contactTestBitMask = isMine ? PhysicsCategory.enemy | PhysicsCategory.asteroid :
                                                         PhysicsCategory.player | PhysicsCategory.asteroid
         node.physicsBody?.collisionBitMask = PhysicsCategory.none
-        node.fillColor = UIColor.orange
-        node.strokeColor = UIColor.clear
+        node.fillColor = UIColor.red
+        node.strokeColor = UIColor.white
     }
     
     func shoot() {

@@ -63,7 +63,6 @@ class SocketIOManager {
             
             deltaTime = (json["deltaTime"] as! Double) / 1000
             
-            NetworkManager.instantiate(type: .player)
             GameManager.synchronizedStart(at: json["time"] as! UInt64)
         }
         _socket.on("instantiate") { (data, ack) in
