@@ -35,7 +35,7 @@ module.exports = class Room {
 
         if (this.masterClient == player.id) {
             if (!this.isEmpty) {
-                this.masterClient = Object.values(this.players)[0];
+                this.masterClient = Object.values(this.players)[0].id;
             }
         }
 
@@ -89,6 +89,7 @@ module.exports = class Room {
 
     gameOver(loser) {
         console.log("Game over");
+        this.simulation.stop();
         server.io.to(this.id).emit('gameOver', {loser: loser});
     }
 }

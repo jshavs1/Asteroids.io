@@ -33,8 +33,6 @@ io.on('connect', function (socket) {
     });
 });
 
-
-
 // main
 http.listen(config.port, function () {
     console.log('Server listening.');
