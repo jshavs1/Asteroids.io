@@ -14,12 +14,14 @@ class Hit: SocketData {
     let B: String
     let typeA: NetworkObjectType
     let typeB: NetworkObjectType
+    let data: JSON?
     
-    init(A: String, B: String, typeA: NetworkObjectType, typeB: NetworkObjectType) {
+    init(A: String, B: String, typeA: NetworkObjectType, typeB: NetworkObjectType, data: JSON? = nil) {
         self.A = A
         self.B = B
         self.typeA = typeA
         self.typeB = typeB
+        self.data = data
     }
     
     init(json: JSON) {
@@ -27,9 +29,10 @@ class Hit: SocketData {
         self.B = json["B"] as! String
         self.typeA = NetworkObjectType(rawValue: json["typeA"] as! String)!
         self.typeB = NetworkObjectType(rawValue: json["typeB"] as! String)!
+        self.data = json["data"] as? JSON
     }
     
     func socketRepresentation() -> SocketData {
-        return ["A": A, "B": B, "typeA": typeA.rawValue, "typeB": typeB.rawValue]
+        return ["A": A, "B": B, "typeA": typeA.rawValue, "typeB": typeB.rawValue, "data": data ?? JSON()]
     }
 }

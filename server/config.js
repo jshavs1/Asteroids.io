@@ -13,11 +13,17 @@ var deltaTime = Math.floor(1000 / 10);
 var deltaTimeSeconds = deltaTime / 1000;
 var serverFrameBuffer = 2;
 
+//Asteroid config
+var minAsteroidInterval = 1 * 1000;
+var maxAsteroidInterval = 3 * 1000;
+
 module.exports = {
     port: port,
     host: host,
     roomSize: roomSize,
     deltaTime: deltaTime,
     deltaTimeSeconds: deltaTimeSeconds,
-    serverFrameBuffer: serverFrameBuffer
+    serverFrameBuffer: serverFrameBuffer,
+    minAsteroidInterval: minAsteroidInterval,
+    maxAsteroidInterval: maxAsteroidInterval
 };

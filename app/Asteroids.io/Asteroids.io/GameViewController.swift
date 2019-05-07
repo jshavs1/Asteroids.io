@@ -29,6 +29,7 @@ class GameViewController: UIViewController, GameSceneDelegate {
 
             if let scene = GameScene(fileNamed: "GameScene") {
                 myScene = scene
+                scene.size = CGSize(width: sceneWidth, height: sceneHeight)
                 scene.gameSceneDelegate = self
                 scene.scaleMode = .aspectFill
                 view.presentScene(scene)

@@ -2,6 +2,7 @@ var server = require('../../server');
 var config = require('../../config');
 var PlayerObject = require('../Player/player-object');
 var LaserObject = require('../Laser/laser-object');
+var AsteroidObject = require('../Asteroid/asteroid-object');
 
 class GameSimulation {
     constructor(room) {
@@ -9,6 +10,14 @@ class GameSimulation {
         this.height = 4000;
         this.room = room;
         this.networkObjects = {};
+    }
+
+    start() {
+        this.generateAsteroids();
+    }
+
+    stop() {
+        clearTimeout(this.timer);
     }
 
     update(command) {
@@ -34,6 +43,24 @@ class GameSimulation {
         server.io.to(this.room.id).emit('state', this.packageState());
     }
 
+    generateAsteroids() {
+        let delay = Math.random() * (config.maxAsteroidInterval - config.minAsteroidInterval) + config.maxAsteroidInterval;
+        this.timer = setTimeout(() => {
+            let details = {
+                owner: this.room.masterClient,
+                type: 'asteroid',
+                data: {
+                    side: Math.floor(Math.random() * 4),
+                    offset: (Math.random() * 2 - 1),
+                    angle: (Math.random() * 2 - 1) * 30,
+                    size: Math.random() < 0.5 ? 'medium' : 'large'
+                }
+            }
+            this.instantiate({}, details);
+            this.generateAsteroids();
+        }, delay);
+    }
+
     removeObjectsFromOwner(owner) {
         for (var key in this.networkObjects) {
             if (this.networkObjects[key].owner == owner) {
@@ -46,19 +73,22 @@ class GameSimulation {
         console.log('emitting instantiate to ' + this.room.id);
         var object;
         var data;
-                switch(details.type) {
+            switch(details.type) {
             case 'player':
                 object = new PlayerObject(socket.id);
                 object.transform.setPosition(0, 0);
                 break;
             case 'laser':
-            	console.log("Creating Laser")
                 object = new LaserObject(socket.id);
                 object.transform.setPosition(details.data.x, details.data.y);
                 data = {
                     dx: details.data.dx,
                     dy: details.data.dy
                 }
+                break;
+            case 'asteroid':
+                object = new AsteroidObject(this.room.masterClient);
+                data = details.data;
                 break;
             default:
                 console.log(details);

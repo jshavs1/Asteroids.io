@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias JSON = [String : Any]
 
@@ -19,7 +20,11 @@ var host: String? {
     }
 }
 
+let sceneWidth: Double = 1600
+let sceneHeight: Double = 900
+
 var deltaTime: TimeInterval = floor(10.0/1000.0)
+var deltaUpdateTime: TimeInterval = 0.0
 
 struct PhysicsCategory {
     static let none                 : UInt32 = 0

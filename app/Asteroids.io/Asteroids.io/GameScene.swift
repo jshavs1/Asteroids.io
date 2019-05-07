@@ -60,6 +60,11 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
             addChild(laser.node!)
             laser.shoot()
             break
+        case .asteroid:
+            let asteroid = object as! Asteroid
+            addChild(asteroid.asteroid)
+            asteroid.launch()
+            break
         }
     }
     

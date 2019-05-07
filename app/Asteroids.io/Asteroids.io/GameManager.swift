@@ -42,12 +42,14 @@ class GameManager {
     public var frame: Int
     private var objects: [String : NetworkObject]
     var isOver: Bool
+    var lastUpdateTime: Double
     
     init() {
         self.frame = 0
         self.objects = [String : NetworkObject]()
         self._onUpdate = Event()
         self.isOver = false
+        self.lastUpdateTime = 0
     }
     
     static func synchronizedStart(at: UInt64) {
@@ -70,6 +72,7 @@ class GameManager {
     
     private func start() {
         print("Starting update loop")
+        lastUpdateTime = Date().timeIntervalSince1970
         loop = Timer.scheduledTimer(withTimeInterval: deltaTime, repeats: true, block: { (_) in
             self.update()
             self.frame += 1;
@@ -86,6 +89,9 @@ class GameManager {
     
     func update() {
         if (isOver) {return}
+        let newUpdateTime = Date().timeIntervalSince1970
+        deltaUpdateTime = newUpdateTime - lastUpdateTime
+        lastUpdateTime = newUpdateTime
         self._onUpdate.invoke(t: self.frame)
     }
     static func update(object: NetworkObject){
@@ -108,6 +114,9 @@ class GameManager {
             let dir = CGVector(dx: response.data!["dx"] as! Double, dy: response.data!["dy"] as! Double)
             object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
             break
+        case .asteroid:
+            object = Asteroid(owner: response.owner, id: response.id, transform: response.transform, data: response.data!)
+            break
         }
         
         objects[object.id] = object
@@ -127,6 +136,12 @@ class GameManager {
         GameManager.default.isOver = true
         GameManager.delegate?.gameOver(loser: loser)
         GameManager.stop()
+    }
+    func gameOver(loser: String) {
+        if (isOver) { return }
+        isOver = true
+        GameManager.delegate?.gameOver(loser: loser)
+        stop()
     }
     
     static func hit(hit: Hit) {

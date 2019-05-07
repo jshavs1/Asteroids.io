@@ -30,6 +30,7 @@ class NetworkManager {
     }
 
     static func destroy(object: NetworkObject) {
+        guard object.isMine else { return }
         SocketIOManager.socket.emit("destroy", object.id)
     }
 

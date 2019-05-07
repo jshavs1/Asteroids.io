@@ -7,10 +7,15 @@ module.exports = class Room {
     constructor() {
         this.id = uuid();
         this.players = {};
+        this.masterClient = "";
         this.simulation = new GameSimulation(this);
     }
 
     addPlayer(player) {
+        if (this.isEmpty) {
+            this.masterClient = player.id;
+        }
+
         this.players[player.id] = player;
         player.roomId = this.id;
 
@@ -28,9 +33,16 @@ module.exports = class Room {
         delete player.roomId;
         player.leave(this.id);
 
+        if (this.masterClient == player.id) {
+            if (!this.isEmpty) {
+                this.masterClient = Object.values(this.players)[0];
+            }
+        }
+
         this.simulation.removeObjectsFromOwner(player.id);
 
         if (this.isEmpty) {
+            this.simulation.stop();
             delete this.simulation;
         }
 
@@ -43,6 +55,7 @@ module.exports = class Room {
 
         server.io.to(this.id).emit('start', {time: startTime, deltaTime: config.deltaTime});
 
+        setTimeout(() => { this.simulation.start(); }, (startTime - Date.now()));
         console.log('Starting game in ' + (startTime - Date.now()));
     }
 

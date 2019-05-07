@@ -11,4 +11,11 @@ import Foundation
 enum NetworkObjectType: String {
     case player = "player"
     case laser = "laser"
+    case asteroid = "asteroid"
+}
+
+enum Size: String {
+    case small = "small"
+    case medium = "medium"
+    case large = "large"
 }
