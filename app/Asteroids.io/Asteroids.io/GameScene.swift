@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
@@ -18,6 +19,21 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
     var playerHealthBar: HealthBar!
     var enemyHealthBar: HealthBar!
+    
+    lazy var bgMusic:AVAudioPlayer? = {
+        guard let url = Bundle.main.url(forResource: "music", withExtension: "wav") else{
+            return nil
+        }
+        
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.numberOfLoops = -1
+            return player
+        } catch {
+            return nil
+        }
+    } ()
+    
     
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
@@ -31,6 +47,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         background.size.width = self.size.width
         background.size.height = self.size.height
         addChild(background)
+        self.bgMusic?.play()
     }
     
     
@@ -65,6 +82,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         case .laser:
             let laser = object as! Laser
             addChild(laser.node!)
+            self.run(SKAction.playSoundFileNamed("laser", waitForCompletion: false))
             laser.shoot()
             break
         case .asteroid:
@@ -84,6 +102,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     }
     
     func gameOver(loser: String) {
+        self.bgMusic?.stop()
         gameSceneDelegate?.gameOver(loser: loser)
     }
     
