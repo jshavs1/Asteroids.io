@@ -15,7 +15,11 @@ var serverFrameBuffer = 2;
 
 //Asteroid config
 var minAsteroidInterval = 1 * 1000;
-var maxAsteroidInterval = 3 * 1000;
+var maxAsteroidInterval = 2 * 1000;
+
+//Map config
+var mapWidth = 1950;
+var mapHeight = 900;
 
 module.exports = {
     port: port,
@@ -25,5 +29,7 @@ module.exports = {
     deltaTimeSeconds: deltaTimeSeconds,
     serverFrameBuffer: serverFrameBuffer,
     minAsteroidInterval: minAsteroidInterval,
-    maxAsteroidInterval: maxAsteroidInterval
+    maxAsteroidInterval: maxAsteroidInterval,
+    mapWidth: mapWidth,
+    mapHeight: mapHeight
 };

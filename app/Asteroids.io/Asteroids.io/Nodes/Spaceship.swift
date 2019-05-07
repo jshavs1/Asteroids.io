@@ -18,7 +18,7 @@ class Spaceship: SKSpriteNode {
         self.smoke.position = CGPoint(x: 0, y: -texture.size().height / 2)
         self.smoke.zPosition = -1
         self.smoke.zRotation = 180 * CGFloat(DegreesToRadians)
-        self.smoke.particleBirthRate = 0
+        self.smoke.particleBirthRate = 50
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         addChild(self.smoke)
     }

@@ -60,7 +60,7 @@ class Player: NetworkObject {
             ship.physicsBody?.categoryBitMask = PhysicsCategory.enemy
             ship.physicsBody?.contactTestBitMask = PhysicsCategory.playerProjectile
         }
-        ship.setScale(0.3)
+        ship.setScale(0.5)
         ship.physicsBody?.collisionBitMask = 0
         ship.physicsBody?.affectedByGravity = false
         ship.position = CGPoint(x: transform.x, y: transform.y)
@@ -74,19 +74,18 @@ class Player: NetworkObject {
         directionY = myY
         directionX = myX
         
-        if (CGPoint(x: myX, y: myY).length() < 0.5) {
-            ship.smoke.particleBirthRate = 0
-        }
-        else {
-            ship.smoke.particleBirthRate = 50
-        }
-        
         let angle = atan2(myY, myX)
         myAngle = angle
         ship.zRotation = angle + CGFloat(90 * DegreesToRadians)
         
-        let translate = SKAction.move(to: newTransform.position, duration: deltaTime)
-        ship.run(translate)
+        if (transform.dist(to: newTransform) < 100.0) {
+            let translate = SKAction.move(to: newTransform.position, duration: deltaTime)
+            ship.run(translate)
+        }
+        else {
+            ship.removeAllActions()
+            ship.position = newTransform.position
+        }
     }
     
     func move(x: CGFloat, y: CGFloat) {
@@ -94,11 +93,6 @@ class Player: NetworkObject {
         
         let x = x * speed * CGFloat(deltaTime)
         let y = y * speed * CGFloat(deltaTime)
-        let pos = CGPoint(x: transform.x + x, y: transform.y + y)
-        
-        
-        
-        transform.position = pos
         
         let command = newCommand
         command.addAction(action: "x", value: x)
@@ -131,7 +125,6 @@ class Player: NetworkObject {
     }
     
     func hit() {
-        print("here")
         let hit = SKAction(named: "Hit")!
         isInvulnrable = true
         ship.run(hit) {

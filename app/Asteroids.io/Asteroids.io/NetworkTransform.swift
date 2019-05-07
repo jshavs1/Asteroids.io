@@ -36,4 +36,8 @@ struct NetworkTransform: Equatable {
     static func == (lhs: NetworkTransform, rhs: NetworkTransform) -> Bool {
         return lhs.x == rhs.x && lhs.y == rhs.y
     }
+    
+    func dist(to: NetworkTransform) -> CGFloat {
+        return sqrt((self.x - to.x)*(self.x - to.x) + (self.y - to.y)*(self.y - to.y))
+    }
 }

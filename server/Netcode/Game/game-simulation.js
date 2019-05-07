@@ -6,8 +6,6 @@ var AsteroidObject = require('../Asteroid/asteroid-object');
 
 class GameSimulation {
     constructor(room) {
-        this.width = 4000;
-        this.height = 4000;
         this.room = room;
         this.networkObjects = {};
     }
@@ -125,6 +123,7 @@ class GameSimulation {
                 break;
             case 'asteroid':
                 if (hit.typeA == 'laser') {
+                    this.destroy(A.id);
                     this.destroy(B.id);
                     if (hit.data.size == 'small') { break;}
 

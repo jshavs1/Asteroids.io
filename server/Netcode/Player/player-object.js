@@ -14,8 +14,25 @@ module.exports = class PlayerObject extends NetworkObject {
     apply(command) {
         var dx = command.actions.x;
         var dy = command.actions.y;
-        this.transform.setPosition(this.transform.position.x + dx,
-                                this.transform.position.y + dy);
+
+        var x = this.transform.position.x + dx;
+        var y = this.transform.position.y + dy;
+
+        if (x > config.mapWidth / 2) {
+            x = -config.mapWidth / 2;
+        }
+        else if (x < -config.mapWidth / 2) {
+            x = config.mapWidth / 2;
+        }
+
+        if (y > config.mapHeight / 2) {
+            y = -config.mapHeight / 2;
+        }
+        else if (y < -config.mapHeight / 2) {
+            y = config.mapHeight / 2;
+        }
+
+        this.transform.setPosition(x, y);
     }
 
     undo(command) {
