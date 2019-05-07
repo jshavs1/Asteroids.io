@@ -71,11 +71,24 @@ class GameViewController: UIViewController, GameSceneDelegate {
     }
     
     func gameOver(loser: String) {
-        let title = Player.local!.owner == loser ? "You lost" : "You won!"
-        let messege = Player.local!.owner == loser ? "Better luck next time!" : "Congratulations!"
-        let ac = UIAlertController(title: title, message: messege, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        //let title = Player.local!.owner == loser ? "You lost" : "You won!"
+        //let messege = Player.local!.owner == loser ? "Better luck next time!" : "Congratulations!"
+        //let ac = UIAlertController(title: title, message: messege, preferredStyle: .alert)
+        //ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         
-        present(ac, animated: true, completion: nil)
+        //present(ac, animated: true, completion: nil)
+        let size = CGSize(width: sceneWidth, height: sceneHeight)
+        let skView = view as! SKView
+        if (Player.local!.owner == loser){
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            let gameOverScene = GameOverScene(size: size, won: false)
+            skView.presentScene(gameOverScene, transition: reveal)
+            
+        } else {
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            let gameOverScene = GameOverScene(size: size, won: true)
+            skView.presentScene(gameOverScene, transition: reveal)
+            
+        }
     }
 }
