@@ -47,6 +47,9 @@
 		6FA9D9A2228230D800AC4DCE /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA9D9A1228230D800AC4DCE /* DesignableView.swift */; };
 		6FA9D9A42282322000AC4DCE /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA9D9A32282322000AC4DCE /* DesignableButton.swift */; };
 		D294CA58227E10B500FE9831 /* Laser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D294CA57227E10B500FE9831 /* Laser.swift */; };
+		ECD7A1BC22822E6F0059E75B /* music.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1B922822E6E0059E75B /* music.wav */; };
+		ECD7A1BD22822E6F0059E75B /* laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1BA22822E6E0059E75B /* laser.wav */; };
+		ECD7A1BE22822E6F0059E75B /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1BB22822E6E0059E75B /* explosion.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -116,6 +119,9 @@
 		6FA9D9A1228230D800AC4DCE /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		6FA9D9A32282322000AC4DCE /* DesignableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
 		D294CA57227E10B500FE9831 /* Laser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laser.swift; sourceTree = "<group>"; };
+		ECD7A1B922822E6E0059E75B /* music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = music.wav; sourceTree = "<group>"; };
+		ECD7A1BA22822E6E0059E75B /* laser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser.wav; sourceTree = "<group>"; };
+		ECD7A1BB22822E6E0059E75B /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				6F13302E226101A60097885B /* Starscream.framework.dSYM */,
+				ECD7A1BB22822E6E0059E75B /* explosion.wav */,
+				ECD7A1BA22822E6E0059E75B /* laser.wav */,
+				ECD7A1B922822E6E0059E75B /* music.wav */,
 				6F13302C2261019D0097885B /* SocketIO.framework.dSYM */,
 				6F133028226101510097885B /* Starscream.framework */,
 				6F133024226101480097885B /* SocketIO.framework */,
@@ -342,12 +351,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD7A1BE22822E6F0059E75B /* explosion.wav in Resources */,
 				6F3089F922601D4200877AFB /* Main.storyboard in Resources */,
 				6F1BE65422813C5F00BBD68D /* SmokeParticle.sks in Resources */,
 				6F3089F022601D4200877AFB /* GameScene.sks in Resources */,
 				6F3089FB22601D4400877AFB /* Assets.xcassets in Resources */,
+				ECD7A1BD22822E6F0059E75B /* laser.wav in Resources */,
 				6F3089FE22601D4400877AFB /* LaunchScreen.storyboard in Resources */,
 				6F3089F222601D4200877AFB /* Actions.sks in Resources */,
+				ECD7A1BC22822E6F0059E75B /* music.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

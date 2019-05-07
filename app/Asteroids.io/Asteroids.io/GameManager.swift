@@ -113,6 +113,7 @@ class GameManager {
         case .laser:
             let dir = CGVector(dx: response.data!["dx"] as! Double, dy: response.data!["dy"] as! Double)
             object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
+            
             break
         case .asteroid:
             let position: CGPoint!
@@ -167,6 +168,7 @@ class GameManager {
             if (hit.typeA == .asteroid) {
                 let player = nObjB as! Player
                 player.stun()
+                //self.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
             }
             if (hit.typeA == .laser) {
                 let player = nObjB as! Player
