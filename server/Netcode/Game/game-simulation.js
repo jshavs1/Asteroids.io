@@ -119,13 +119,13 @@ class GameSimulation {
                     B.takeHit();
                     if (B.isDead) { this.room.gameOver(B.owner); }
                     this.destroy(A.id);
-                    server.io.to(B.id).emit('hit', hit);
                 }
                 break;
             default:
                 console.log(hit);
                 break;
         }
+        server.io.to(this.room.id).emit('hit', hit);
     }
 
     destroy(id) {

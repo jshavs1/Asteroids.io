@@ -59,37 +59,15 @@ class GameViewController: UIViewController, GameSceneDelegate {
 
     func onUpdate(frame: Int) {
         if let player = Player.local {
-            let x = movementJoystick.x * player.speed * CGFloat(deltaTime)
-            let y = movementJoystick.y * player.speed * CGFloat(deltaTime)
-            let pos = CGPoint(x: player.transform.x + x, y: player.transform.y + y)
-
-            player.transform.position = pos
-
-            let command = player.newCommand
-            command.addAction(action: "x", value: x)
-            command.addAction(action: "y", value: y)
-            NetworkManager.update(command: command)
-            
-            shoot()
+            player.move(x: movementJoystick.x, y: movementJoystick.y)
+            player.shoot(x: fireJoystick.x, y: fireJoystick.y)
+            player.update()
         }
     }
 
     func onLatency(latency: Double) {
         self.pingLabel.text = "Ping: \(latency.rounded())"
         SocketIOManager.default.ping()
-    }
-    
-    func shoot() {
-        if (myScene.didTap){
-            var direction = myScene.touchLocation
-            direction.x -= Player.local!.transform.x
-            direction.y -= Player.local!.transform.y
-            direction = direction.normalized()
-            
-            Player.local?.shoot(dir: CGVector(dx: direction.x, dy: direction.y))
-            
-            myScene.didTap = false
-        }
     }
     
     func gameOver(loser: String) {

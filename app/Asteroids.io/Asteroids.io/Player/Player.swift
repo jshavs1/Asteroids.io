@@ -12,10 +12,18 @@ import SpriteKit
 
 class Player: NetworkObject {
     static var local: Player?
-    let speed: CGFloat = 1000
+    let speed: CGFloat = 500
+    let cooldown: CGFloat = 0.3
+    
+    var currentCooldown: CGFloat = 0
     var directionX : CGFloat = 0.0
     var directionY: CGFloat = 0.0
     var myAngle: CGFloat = 0.0
+    
+    var isStunned: Bool = false
+    var canShoot: Bool {
+        get { return currentCooldown <= 0 }
+    }
     
     var ship: Spaceship {
         get { return node as! Spaceship }
@@ -36,7 +44,7 @@ class Player: NetworkObject {
             ship = Spaceship(imageNamed: "enemy")
             ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
             ship.physicsBody?.categoryBitMask = PhysicsCategory.enemy
-            ship.physicsBody?.contactTestBitMask = PhysicsCategory.playerProjectile | PhysicsCategory.asteroid
+            ship.physicsBody?.contactTestBitMask = PhysicsCategory.playerProjectile
         }
         ship.physicsBody?.collisionBitMask = 0
         ship.physicsBody?.affectedByGravity = false
@@ -59,19 +67,46 @@ class Player: NetworkObject {
         ship.run(translate)
     }
     
-    func shoot(dir: CGVector) {
-        let magnitude = sqrt(dir.dx * dir.dx + dir.dy * dir.dy)
-        let x = dir.dx / magnitude
-        let y = dir.dy / magnitude
+    func move(x: CGFloat, y: CGFloat) {
+        guard !isStunned else { return }
+        
+        let x = x * speed * CGFloat(deltaTime)
+        let y = y * speed * CGFloat(deltaTime)
+        let pos = CGPoint(x: transform.x + x, y: transform.y + y)
+        
+        transform.position = pos
+        
+        let command = newCommand
+        command.addAction(action: "x", value: x)
+        command.addAction(action: "y", value: y)
+        NetworkManager.update(command: command)
+    }
+    
+    func shoot(x: CGFloat, y: CGFloat) {
+        guard !isStunned, canShoot, sqrt(x * x + y * y) > 0.5 else { return }
         
         let position = CGPoint(x: transform.x + x * ship.size.width, y: transform.y + y * ship.size.height)
                 
         var json = JSON()
         json["x"] = position.x
         json["y"] = position.y
-        json["dx"] = dir.dx
-        json["dy"] = dir.dy
+        json["dx"] = x
+        json["dy"] = y
         
         NetworkManager.instantiate(type: .laser, data: json)
+        
+        currentCooldown = cooldown
+    }
+    
+    func stun() {
+        let stun = SKAction(named: "Stun")!
+        isStunned = true
+        ship.run(stun) {
+            self.isStunned = false
+        }
+    }
+    
+    func update() {
+        currentCooldown -= CGFloat(deltaUpdateTime)
     }
 }

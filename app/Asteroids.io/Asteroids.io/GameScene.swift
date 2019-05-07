@@ -104,16 +104,19 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node else { return }
-        
+        guard let nObjA = nodeA.userData!["networkObject"] as? NetworkObject else { return }
+        guard let nObjB = nodeB.userData!["networkObject"] as? NetworkObject else { return }
+                
         switch nodeA.physicsBody!.categoryBitMask {
         case PhysicsCategory.playerProjectile:
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.enemy) {
-                let nObjA = nodeA.userData!["networkObject"] as! NetworkObject
-                let nObjB = nodeB.userData!["networkObject"] as! NetworkObject
-                
                 NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
             }
             break
+        case PhysicsCategory.player:
+            if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
+                NetworkManager.hit(hit: Hit(A: nObjB.id, B: nObjA.id, typeA: .asteroid, typeB: .player))
+            }
         default:
             break
         }

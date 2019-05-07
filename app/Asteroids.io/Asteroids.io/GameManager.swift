@@ -133,9 +133,7 @@ class GameManager {
     }
     
     static func gameOver(loser: String) {
-        GameManager.default.isOver = true
-        GameManager.delegate?.gameOver(loser: loser)
-        GameManager.stop()
+        GameManager.default.gameOver(loser: loser)
     }
     func gameOver(loser: String) {
         if (isOver) { return }
@@ -149,7 +147,17 @@ class GameManager {
     }
     func hit(hit: Hit) {
         if (isOver) { return }
-        print("Hit messege received")
+        guard let nObjA = objects[hit.A], let nObjB = objects[hit.B] else {return}
+        
+        switch hit.typeB {
+        case .player:
+            if (hit.typeA == .asteroid) {
+                let player = nObjB as! Player
+                player.stun()
+            }
+        default:
+            break
+        }
     }
     
     static func findObject(id: String) -> NetworkObject? {

@@ -33,11 +33,8 @@ class Asteroid: NetworkObject {
     init(owner: String, id: String, transform: NetworkTransform, data: JSON) {
         size = Size(rawValue: data["size"] as! String)!
         direction = Asteroid.calculateDirection(side: data["side"] as! Int, angle: data["angle"] as! Double)
-        print(direction)
         super.init(owner: owner, id: id, transform: transform)
         setupNode(data: data)
-        
-        print("side: \(data["side"] as! Int), direction: \(direction), position: \(node!.position)")
     }
     
     static func calculateDirection(side: Int, angle: Double) -> CGVector {
@@ -92,9 +89,10 @@ class Asteroid: NetworkObject {
         asteroid.position = Asteroid.calculatePosition(side: data["side"] as! Int, offset: data["offset"] as! Double)
         asteroid.physicsBody = SKPhysicsBody(circleOfRadius: asteroid.size.width / 2)
         asteroid.physicsBody?.categoryBitMask = PhysicsCategory.asteroid
-        asteroid.physicsBody?.contactTestBitMask = PhysicsCategory.all & ~PhysicsCategory.asteroid
+        asteroid.physicsBody?.contactTestBitMask = ~PhysicsCategory.asteroid
         asteroid.physicsBody?.collisionBitMask = PhysicsCategory.none
         asteroid.physicsBody?.affectedByGravity = false
+        asteroid.physicsBody?.usesPreciseCollisionDetection = true
     }
     
     func launch() {
