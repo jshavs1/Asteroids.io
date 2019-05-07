@@ -33,7 +33,7 @@ class Laser: NetworkObject {
     func setupNode() {
         self.node = SKShapeNode()
         guard let node = self.node as? SKShapeNode else { return }
-        let rect = CGRect(x: 0, y: 0, width: 20, height: 100)
+        let rect = CGRect(x: 0, y: 0, width: 5, height: 50)
         node.position = transform.position
         node.zRotation = atan2(direction.dy, direction.dx) + CGFloat(90 * DegreesToRadians)
         node.path = CGPath(rect: rect, transform: nil)

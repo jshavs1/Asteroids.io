@@ -16,14 +16,20 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     var touchLocation: CGPoint = CGPoint(x: 0.0,y: 0.0)
     var gameSceneDelegate: GameSceneDelegate?
     
+    var playerHealthBar: HealthBar!
+    var enemyHealthBar: HealthBar!
+    
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         GameManager.delegate = self
         
+        playerHealthBar = (childNode(withName: "playerHealthBar") as! HealthBar)
+        enemyHealthBar = (childNode(withName: "enemyHealthBar") as! HealthBar)
+        
         let background = SKSpriteNode(imageNamed: "sky2")
         background.zPosition = -500
         background.size.width = self.size.width
-        background.size.height = self.size.height / 2 + 300
+        background.size.height = self.size.height
         addChild(background)
     }
     
@@ -52,6 +58,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
 
             player.ship.zPosition = 300
             player.ship.physicsBody?.usesPreciseCollisionDetection = true
+            player.ship.smoke.targetNode = self
 
             addChild(player.ship)
             break
@@ -106,7 +113,8 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         guard let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node else { return }
         guard let nObjA = nodeA.userData!["networkObject"] as? NetworkObject else { return }
         guard let nObjB = nodeB.userData!["networkObject"] as? NetworkObject else { return }
-                
+        
+        print("A: \(nodeA.physicsBody!.categoryBitMask) B: \(nodeB.physicsBody!.categoryBitMask)")
         switch nodeA.physicsBody!.categoryBitMask {
         case PhysicsCategory.playerProjectile:
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.enemy) {
@@ -114,6 +122,19 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
                 if (!enemy.isInvulnrable) {
                     NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
                 }
+            }
+            if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
+                let asteroid = nObjB as! Asteroid
+                let laser = nObjA as! Laser
+                
+                var data = JSON()
+                data["size"] = asteroid.size.rawValue
+                data["x"] = asteroid.transform.x
+                data["y"] = asteroid.transform.y
+                data["dx"] = laser.direction.dx
+                data["dy"] = laser.direction.dy
+                
+                NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .asteroid, data: data))
             }
             break
         case PhysicsCategory.player:

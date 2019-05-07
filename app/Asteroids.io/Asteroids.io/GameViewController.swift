@@ -31,7 +31,7 @@ class GameViewController: UIViewController, GameSceneDelegate {
                 myScene = scene
                 scene.size = CGSize(width: sceneWidth, height: sceneHeight)
                 scene.gameSceneDelegate = self
-                scene.scaleMode = .aspectFill
+                scene.scaleMode = .aspectFit
                 view.presentScene(scene)
             }
 

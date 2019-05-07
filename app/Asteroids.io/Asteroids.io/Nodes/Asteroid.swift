@@ -30,63 +30,17 @@ class Asteroid: NetworkObject {
         super.init(owner: owner, id: id, transform: transform)
     }
     
-    init(owner: String, id: String, transform: NetworkTransform, data: JSON) {
-        size = Size(rawValue: data["size"] as! String)!
-        direction = Asteroid.calculateDirection(side: data["side"] as! Int, angle: data["angle"] as! Double)
+    init(owner: String, id: String, transform: NetworkTransform, size: Size, position: CGPoint, direction: CGVector) {
+        self.size = size
+        self.direction = direction
         super.init(owner: owner, id: id, transform: transform)
-        setupNode(data: data)
+        setupNode()
+        asteroid.position = position
     }
     
-    static func calculateDirection(side: Int, angle: Double) -> CGVector {
-        let x: Double!
-        let y: Double!
-        let theta = Double(DegreesToRadians) * angle
-        switch side {
-        case 0:
-            x = 1.0; y = 0.0
-            break
-        case 1:
-            x = 0.0; y = -1.0
-            break
-        case 2:
-            x = -1.0; y = 0.0
-            break
-        case 3:
-            x = 0.0; y = 1.0
-            break
-        default:
-            x = 0.0; y = 0.0
-        }
-        return CGVector(dx: x * cos(theta) - y * sin(theta), dy: x * sin(theta) + y * cos(theta))
-    }
-    
-    static func calculatePosition(side: Int, offset: Double) -> CGPoint {
-        let x: Double!
-        let y: Double!
-        switch side {
-        case 0:
-            x = -sceneWidth / 2; y = sceneHeight / 2 * offset
-            break
-        case 1:
-            x = sceneWidth / 2 * offset; y = sceneHeight / 2
-            break
-        case 2:
-            x = sceneWidth / 2; y = sceneHeight / 2 * offset
-            break
-        case 3:
-            x = sceneWidth / 2 * offset; y = -sceneHeight / 2
-            break
-        default:
-            x = 0.0; y = 0.0
-        }
-        
-        return CGPoint(x: x, y: y)
-    }
-    
-    func setupNode(data: JSON) {
+    func setupNode() {
         let sprite = SKTexture(imageNamed: size.rawValue)
         asteroid = SKSpriteNode(texture: sprite, color: UIColor.clear, size: sprite.size())
-        asteroid.position = Asteroid.calculatePosition(side: data["side"] as! Int, offset: data["offset"] as! Double)
         asteroid.physicsBody = SKPhysicsBody(circleOfRadius: asteroid.size.width / 2)
         asteroid.physicsBody?.categoryBitMask = PhysicsCategory.asteroid
         asteroid.physicsBody?.contactTestBitMask = ~PhysicsCategory.asteroid

@@ -52,7 +52,7 @@ class GameSimulation {
                 data: {
                     side: Math.floor(Math.random() * 4),
                     offset: (Math.random() * 2 - 1),
-                    angle: (Math.random() * 2 - 1) * 30,
+                    angle: (Math.random() * 2 - 1) * 45,
                     size: Math.random() < 0.5 ? 'medium' : 'large'
                 }
             }
@@ -108,7 +108,6 @@ class GameSimulation {
     }
 
     hit(hit) {
-        console.log("Hit received");
         var A, B;
         if (!(A = this.networkObjects[hit.A]) ||
             !(B = this.networkObjects[hit.B])) { return; }
@@ -119,6 +118,44 @@ class GameSimulation {
                     B.takeHit();
                     if (B.isDead) { this.room.gameOver(B.owner); }
                     this.destroy(A.id);
+                    hit.data = {
+                        health: B.health,
+                    };
+                }
+                break;
+            case 'asteroid':
+                if (hit.typeA == 'laser') {
+                    this.destroy(B.id);
+                    if (hit.data.size == 'small') { break;}
+
+                    let theta = 45 * Math.PI / 180;
+                    let x = hit.data.x;
+                    let y = hit.data.y;
+                    let dx = hit.data.dx;
+                    let dy = hit.data.dy;
+
+                    var details = {
+                        type: 'asteroid',
+                        owner: this.room.masterClient,
+                        data: {
+                            x: x,
+                            y: y,
+                            size: 'small',
+                        },
+                    };
+                    details.data.dx = dx * Math.cos(theta) - dy * Math.sin(theta);
+                    details.data.dy = dx * Math.sin(theta) + dy * Math.cos(theta);
+                    this.instantiate({}, details);
+
+                    details.data.dx = dx * Math.cos(-theta) - dy * Math.sin(-theta);
+                    details.data.dy = dx * Math.sin(-theta) + dy * Math.cos(-theta);
+                    this.instantiate({}, details);
+
+                    if (hit.data.size == 'large') {
+                        details.data.dx = dx
+                        details.data.dy = dy
+                        this.instantiate({}, details);
+                    }
                 }
                 break;
             default:

@@ -20,7 +20,7 @@ var host: String? {
     }
 }
 
-let sceneWidth: Double = 1600
+let sceneWidth: Double = 1950
 let sceneHeight: Double = 900
 
 var deltaTime: TimeInterval = floor(10.0/1000.0)

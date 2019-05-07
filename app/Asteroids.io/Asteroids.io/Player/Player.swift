@@ -14,7 +14,19 @@ class Player: NetworkObject {
     static var local: Player?
     let speed: CGFloat = 500
     let cooldown: CGFloat = 0.3
+    let health: Int = 10
     
+    var currentHealth: Int {
+        didSet {
+            let gameScene = self.node!.scene as! GameScene
+            if (isMine) {
+                gameScene.playerHealthBar.health = CGFloat(currentHealth) / CGFloat(health)
+            }
+            else {
+                gameScene.enemyHealthBar.health = CGFloat(currentHealth) / CGFloat(health)
+            }
+        }
+    }
     var currentCooldown: CGFloat = 0
     var directionX : CGFloat = 0.0
     var directionY: CGFloat = 0.0
@@ -32,23 +44,23 @@ class Player: NetworkObject {
     }
     
     override init(owner: String, id: String, transform: NetworkTransform) {
+        self.currentHealth = health
         super.init(owner: owner, id: id, transform: transform)
         
         // Selects which sprite to use for the spaceships
         if isMine {
             ship = Spaceship(imageNamed: "player")
-            ship.setScale(0.5)
-            ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
+            ship.physicsBody = SKPhysicsBody(rectangleOf: ship.size)
             ship.physicsBody?.categoryBitMask = PhysicsCategory.player
             ship.physicsBody?.contactTestBitMask = PhysicsCategory.enemyProjectile | PhysicsCategory.asteroid
             
         } else {
             ship = Spaceship(imageNamed: "enemy")
-            ship.setScale(0.5)
             ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
             ship.physicsBody?.categoryBitMask = PhysicsCategory.enemy
             ship.physicsBody?.contactTestBitMask = PhysicsCategory.playerProjectile
         }
+        ship.setScale(0.3)
         ship.physicsBody?.collisionBitMask = 0
         ship.physicsBody?.affectedByGravity = false
         ship.position = CGPoint(x: transform.x, y: transform.y)
@@ -62,6 +74,13 @@ class Player: NetworkObject {
         directionY = myY
         directionX = myX
         
+        if (CGPoint(x: myX, y: myY).length() < 0.5) {
+            ship.smoke.particleBirthRate = 0
+        }
+        else {
+            ship.smoke.particleBirthRate = 50
+        }
+        
         let angle = atan2(myY, myX)
         myAngle = angle
         ship.zRotation = angle + CGFloat(90 * DegreesToRadians)
@@ -72,13 +91,6 @@ class Player: NetworkObject {
     
     func move(x: CGFloat, y: CGFloat) {
         guard !isStunned else { return }
-        
-        if CGPoint(x: x, y: y).length() > 0.1 {
-            ship.smoke.particleBirthRate = 40
-        }
-        else {
-            ship.smoke.particleBirthRate = 0
-        }
         
         let x = x * speed * CGFloat(deltaTime)
         let y = y * speed * CGFloat(deltaTime)

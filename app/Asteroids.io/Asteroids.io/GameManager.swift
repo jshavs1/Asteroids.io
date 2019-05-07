@@ -115,7 +115,19 @@ class GameManager {
             object = Laser(owner: response.owner, id: response.id, transform: response.transform, direction: dir)
             break
         case .asteroid:
-            object = Asteroid(owner: response.owner, id: response.id, transform: response.transform, data: response.data!)
+            let position: CGPoint!
+            let direction: CGVector!
+            let size = Size(rawValue: response.data!["size"] as! String)!
+            if (size != .small) {
+                position = calculateAsteroidPosition(side: response.data!["side"] as! Int, offset: response.data!["offset"] as! Double)
+                direction = calculateAsteroidDirection(position: position, angle: response.data!["angle"] as! Double)
+            }
+            else {
+                position = CGPoint(x: response.data!["x"] as! CGFloat, y: response.data!["y"] as! CGFloat)
+                direction = CGVector(dx: response.data!["dx"] as! CGFloat, dy: response.data!["dy"] as! CGFloat)
+            }
+            object = Asteroid(owner: response.owner, id: response.id, transform: response.transform, size: size, position: position, direction: direction)
+            
             break
         }
         
@@ -158,6 +170,7 @@ class GameManager {
             }
             if (hit.typeA == .laser) {
                 let player = nObjB as! Player
+                player.currentHealth = hit.data!["health"] as! Int
                 player.hit()
             }
         default:
@@ -167,6 +180,37 @@ class GameManager {
     
     static func findObject(id: String) -> NetworkObject? {
         return GameManager.default.objects[id]
+    }
+    
+    func calculateAsteroidDirection(position: CGPoint, angle: Double) -> CGVector {
+        let x: Double = Double(-position.x) / Double(position.length())
+        let y: Double = Double(-position.y) / Double(position.length())
+        let theta = Double(DegreesToRadians) * angle
+        
+        return CGVector(dx: x * cos(theta) - y * sin(theta), dy: x * sin(theta) + y * cos(theta))
+    }
+    
+    func calculateAsteroidPosition(side: Int, offset: Double) -> CGPoint {
+        let x: Double!
+        let y: Double!
+        switch side {
+        case 0:
+            x = -sceneWidth / 2; y = sceneHeight / 2 * offset
+            break
+        case 1:
+            x = sceneWidth / 2 * offset; y = sceneHeight / 2
+            break
+        case 2:
+            x = sceneWidth / 2; y = sceneHeight / 2 * offset
+            break
+        case 3:
+            x = sceneWidth / 2 * offset; y = -sceneHeight / 2
+            break
+        default:
+            x = 0.0; y = 0.0
+        }
+        
+        return CGPoint(x: x, y: y)
     }
     
 }
