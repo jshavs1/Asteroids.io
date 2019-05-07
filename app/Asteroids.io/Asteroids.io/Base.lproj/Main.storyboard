@@ -79,5 +79,39 @@
             </objects>
             <point key="canvasLocation" x="22.767857142857142" y="63.768115942028992"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="o5Z-mI-NFE">
+            <objects>
+                <viewController id="APF-6b-7q0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qxk-bt-cQy">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8a-Ec-ika" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
+                                <rect key="frame" x="323" y="82" width="250" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="vT6-Hf-VKo"/>
+                                    <constraint firstAttribute="height" constant="250" id="zN7-VU-Pbb"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="g8a-Ec-ika" firstAttribute="centerX" secondItem="Qxk-bt-cQy" secondAttribute="centerX" id="mzv-Xj-diP"/>
+                            <constraint firstItem="g8a-Ec-ika" firstAttribute="centerY" secondItem="Qxk-bt-cQy" secondAttribute="centerY" id="oMu-9C-tFG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cLL-VI-kLC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1wx-Y7-w39" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="23" y="797"/>
+        </scene>
     </scenes>
 </document>

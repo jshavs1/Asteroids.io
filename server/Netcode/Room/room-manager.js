@@ -26,6 +26,7 @@ class RoomManager {
         var room = RoomManager.rooms[roomId];
         if (room) {
             room.playerDisconnected(player);
+            RoomManager.roomListUpdated();
         }
     }
     static addPlayerToQueue(socket) {
@@ -33,23 +34,18 @@ class RoomManager {
         RoomManager.playerQueue.push(socket);
         RoomManager.flushPlayerQueue();
     }
-    static closeRoom(room) {
-        for (var key in room.players) {
-            delete room.players[key].roomId;
-            room.players[key].leave(room.id);
-        }
-        delete RoomManager.rooms[room.id];
-        console.log('Closing room '+room.id);
-    }
     static roomListUpdated() {
         console.log('Room list updated');
         for (var key in RoomManager.rooms) {
             var room = RoomManager.rooms[key];
             if (room.isEmpty) {
-                console.log('Deleting room '+room.id);
-                delete RoomManager.rooms[key];
+                RoomManager.closeRoom(room);
             }
         }
+    }
+    static closeRoom(room) {
+        delete RoomManager.rooms[room.id];
+        console.log('Closing room '+room.id);
     }
     static flushPlayerQueue() {
         var room;

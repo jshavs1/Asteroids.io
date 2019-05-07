@@ -2,7 +2,6 @@ var uuid = require('uuid/v1');
 var server = require('../../server');
 var config = require('../../config');
 const GameSimulation = require('../Game/game-simulation');
-var RoomManager = require('./room-manager');
 
 module.exports = class Room {
     constructor() {
@@ -40,7 +39,11 @@ module.exports = class Room {
             this.startTimeout = null;
         }
 
-        console.log('Removing player '+player.id+' from room '+this.id);
+        this.players[player.id].leave(this.id);
+        delete this.players[player.id].roomId;
+        delete this.players[player.id]
+
+        console.log('Player '+player.id+' disconnected from room '+this.id);
     }
 
     startGame() {
@@ -85,6 +88,5 @@ module.exports = class Room {
     gameOver(loser) {
         console.log("Game over");
         server.io.to(this.id).emit('gameOver', {loser: loser});
-        console.log(RoomManager);
     }
 }
