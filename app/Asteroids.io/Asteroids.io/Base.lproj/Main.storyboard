@@ -34,7 +34,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ping" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijQ-nU-8DV">
-                                <rect key="frame" x="793" y="20" width="31" height="18"/>
+                                <rect key="frame" x="793.5" y="20" width="30.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -54,6 +54,76 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="phc-FF-84P" userLabel="ActivityView" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
+                                <rect key="frame" x="348" y="107" width="200" height="200"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3CX-5b-6Cc">
+                                        <rect key="frame" x="75" y="75" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="hqp-hi-IEq"/>
+                                            <constraint firstAttribute="height" constant="50" id="jip-5Y-Yv7"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for game..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHF-rd-pcm">
+                                        <rect key="frame" x="18.5" y="154.5" width="163.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.39680543664383561" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="mHF-rd-pcm" firstAttribute="centerX" secondItem="phc-FF-84P" secondAttribute="centerX" id="1ZO-XB-r7U"/>
+                                    <constraint firstAttribute="width" constant="200" id="A6u-vC-ELa"/>
+                                    <constraint firstAttribute="bottom" secondItem="mHF-rd-pcm" secondAttribute="bottom" constant="25" id="AzI-73-Lex"/>
+                                    <constraint firstItem="3CX-5b-6Cc" firstAttribute="centerY" secondItem="phc-FF-84P" secondAttribute="centerY" id="DUv-xN-oUr"/>
+                                    <constraint firstItem="3CX-5b-6Cc" firstAttribute="centerX" secondItem="phc-FF-84P" secondAttribute="centerX" id="UuF-vF-oot"/>
+                                    <constraint firstAttribute="height" constant="200" id="lGe-rq-gdL"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S8o-qh-CVh" userLabel="GameOverView" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
+                                <rect key="frame" x="348" y="107" width="200" height="200"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="fvE-cS-K1c">
+                                        <rect key="frame" x="25" y="25" width="150" height="150"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winner winner chicken dinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfa-FK-aCj" userLabel="Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="49.5"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoM-i3-n2G" customClass="DesignableButton" customModule="Asteroids_io" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="99.5" width="150" height="50.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                <state key="normal" title="Menu"/>
+                                                <connections>
+                                                    <action selector="menuPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="rhm-4T-eoT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="height" secondItem="S8o-qh-CVh" secondAttribute="height" constant="-50" id="0uW-XD-pbb"/>
+                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="centerY" secondItem="S8o-qh-CVh" secondAttribute="centerY" id="Dmu-O5-rei"/>
+                                    <constraint firstAttribute="height" constant="200" id="L7Z-8F-IRD"/>
+                                    <constraint firstAttribute="width" constant="200" id="Z2O-nu-pGq"/>
+                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="centerX" secondItem="S8o-qh-CVh" secondAttribute="centerX" id="b97-lE-qch"/>
+                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="width" secondItem="S8o-qh-CVh" secondAttribute="width" constant="-50" id="h8p-vJ-NnU"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -65,32 +135,76 @@
                             <constraint firstItem="ijQ-nU-8DV" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="20" id="Uvo-dw-2b5"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="mYK-3f-0Ko" secondAttribute="trailing" constant="40" id="gNR-8X-jqS"/>
                             <constraint firstItem="ECx-iL-RbM" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="225" id="nSf-fs-hPU"/>
+                            <constraint firstItem="phc-FF-84P" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="pq5-l1-oZi"/>
+                            <constraint firstItem="phc-FF-84P" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="sBX-iO-wwk"/>
+                            <constraint firstItem="S8o-qh-CVh" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="sPi-Zx-9Ew"/>
+                            <constraint firstItem="S8o-qh-CVh" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="z47-gm-TXL"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="ijQ-nU-8DV" secondAttribute="trailing" constant="28" id="ztS-zQ-Ka8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="3CX-5b-6Cc" id="XCo-Hd-pdJ"/>
+                        <outlet property="activityLabel" destination="mHF-rd-pcm" id="Dxj-Ch-Cjn"/>
+                        <outlet property="activityView" destination="phc-FF-84P" id="VbJ-St-4GO"/>
                         <outlet property="fireJoystick" destination="mYK-3f-0Ko" id="OZa-Jr-Saq"/>
+                        <outlet property="gameOverLabel" destination="Nfa-FK-aCj" id="b7w-kE-urm"/>
+                        <outlet property="gameOverView" destination="S8o-qh-CVh" id="Ssa-xY-4Wx"/>
                         <outlet property="movementJoystick" destination="ECx-iL-RbM" id="kdX-gi-46e"/>
                         <outlet property="pingLabel" destination="ijQ-nU-8DV" id="pFQ-yp-6vh"/>
+                        <segue destination="APF-6b-7q0" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="tiX-Uz-DtL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="22.767857142857142" y="63.768115942028992"/>
         </scene>
-        <!--View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="o5Z-mI-NFE">
             <objects>
-                <viewController id="APF-6b-7q0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuViewController" id="APF-6b-7q0" customClass="MenuViewController" customModule="Asteroids_io" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qxk-bt-cQy">
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8a-Ec-ika" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3XV-Hx-TNd">
+                                <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8a-Ec-ika" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
                                 <rect key="frame" x="323" y="82" width="250" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Asteroids.io" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3z0-eA-yvc">
+                                        <rect key="frame" x="39" y="50" width="172" height="42"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="32"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHo-FI-U4S" customClass="DesignableButton" customModule="Asteroids_io" customModuleProvider="target">
+                                        <rect key="frame" x="37.5" y="150" width="175" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="HHo-FI-U4S" secondAttribute="height" multiplier="7:2" id="mKH-RL-e9D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Join Game"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="joinPressed:" destination="APF-6b-7q0" eventType="touchUpInside" id="Aki-qG-AL2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="HHo-FI-U4S" firstAttribute="centerX" secondItem="g8a-Ec-ika" secondAttribute="centerX" id="5dj-iA-jLT"/>
+                                    <constraint firstItem="3z0-eA-yvc" firstAttribute="top" secondItem="g8a-Ec-ika" secondAttribute="top" constant="50" id="CeS-83-vZJ"/>
+                                    <constraint firstItem="HHo-FI-U4S" firstAttribute="width" secondItem="g8a-Ec-ika" secondAttribute="width" multiplier="0.7" id="M6x-PD-w2r"/>
+                                    <constraint firstAttribute="bottom" secondItem="HHo-FI-U4S" secondAttribute="bottom" constant="50" id="ajt-pf-rIK"/>
+                                    <constraint firstItem="3z0-eA-yvc" firstAttribute="centerX" secondItem="g8a-Ec-ika" secondAttribute="centerX" id="ddc-hv-4om"/>
                                     <constraint firstAttribute="width" constant="250" id="vT6-Hf-VKo"/>
                                     <constraint firstAttribute="height" constant="250" id="zN7-VU-Pbb"/>
                                 </constraints>
@@ -103,6 +217,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="3XV-Hx-TNd" firstAttribute="height" secondItem="Qxk-bt-cQy" secondAttribute="height" id="7Ks-1f-NSm"/>
+                            <constraint firstItem="3XV-Hx-TNd" firstAttribute="centerY" secondItem="Qxk-bt-cQy" secondAttribute="centerY" id="Cso-HW-Ooq"/>
+                            <constraint firstItem="3XV-Hx-TNd" firstAttribute="centerX" secondItem="Qxk-bt-cQy" secondAttribute="centerX" id="S72-LC-Dfq"/>
+                            <constraint firstItem="3XV-Hx-TNd" firstAttribute="width" secondItem="Qxk-bt-cQy" secondAttribute="width" id="jES-4J-Ggz"/>
                             <constraint firstItem="g8a-Ec-ika" firstAttribute="centerX" secondItem="Qxk-bt-cQy" secondAttribute="centerX" id="mzv-Xj-diP"/>
                             <constraint firstItem="g8a-Ec-ika" firstAttribute="centerY" secondItem="Qxk-bt-cQy" secondAttribute="centerY" id="oMu-9C-tFG"/>
                         </constraints>
@@ -111,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1wx-Y7-w39" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="23" y="797"/>
+            <point key="canvasLocation" x="23" y="945"/>
         </scene>
     </scenes>
 </document>

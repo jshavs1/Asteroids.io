@@ -34,12 +34,18 @@ class SocketIOManager {
     var pongTime: Double = 0
     
     var onLatency: Event<Double>
+    var onConnect: Event<Void>
+    var onDisconnect: Event<Void>
+    var onStart: Event<Void>
     
     
     init() {
         self._manager = SocketManager(socketURL: URL(string: host!)!, config: [.compress])
         self._socket = self._manager.defaultSocket
         self.onLatency = Event<Double>()
+        self.onConnect = Event<Void>()
+        self.onDisconnect = Event<Void>()
+        self.onStart = Event<Void>()
     }
     
     func configureSocket() {
@@ -49,10 +55,12 @@ class SocketIOManager {
         // the server.
         _socket.on(clientEvent: .connect) { (data, ack) in
             print("Socket connected to host")
+            self.onConnect.invoke(t: ())
             self.ping()
         }
         _socket.on(clientEvent: .disconnect) { (data, ack) in
             print("Socket disconnected")
+            self.onDisconnect.invoke(t: ())
         }
         _socket.on("mypong") { (data, ack) in
             self.pong()
@@ -60,6 +68,8 @@ class SocketIOManager {
         _socket.on("start") { (data, ack) in
             var json = data[0] as! JSON
             print("Starting game")
+            
+            self.onStart.invoke(t: ())
             
             deltaTime = (json["deltaTime"] as! Double) / 1000
             
@@ -94,7 +104,14 @@ class SocketIOManager {
             GameManager.gameOver(loser: loser)
         }
         print("Socket ready")
+    }
+    
+    func connect() {
         _socket.connect()
+    }
+    
+    func disconnect() {
+        _socket.disconnect()
     }
     
     func ping() {

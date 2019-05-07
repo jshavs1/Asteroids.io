@@ -33,11 +33,13 @@ class GameSimulation {
         details.owner = this.player1.id;
         details.data.x = -config.mapWidth / 2 + 200;
         this.instantiate(this.player1, details);
+        console.log(details);
 
         details.owner = this.player2.id;
         details.data.x = details.data.x = config.mapWidth / 2 - 200;
         this.instantiate(this.player2, details);
-        
+        console.log(details);
+
     }
 
     start() {
@@ -48,6 +50,9 @@ class GameSimulation {
     stop() {
         if (this.inProgress) {
             clearTimeout(this.timer);
+        }
+        for (var key in this.networkObjects) {
+            this.destroy(this.networkObjects[key].id);
         }
     }
 

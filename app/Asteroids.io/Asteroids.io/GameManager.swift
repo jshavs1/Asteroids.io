@@ -85,6 +85,7 @@ class GameManager {
     func stop() {
         loop.invalidate()
         self.frame = 0
+        GameManager._default = nil
     }
     
     func update() {

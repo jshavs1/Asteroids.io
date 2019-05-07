@@ -12,20 +12,26 @@ import UIKit
 @IBDesignable
 class DesignableButton: UIButton {
     
-    @IBInspectable
-    var cornerRadius: CGFloat = 0 {
-        didSet {
-            self.layer.cornerRadius = cornerRadius
-        }
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setup()
     }
     
+    func setup() {
+        layer.cornerRadius = frame.size.height / 2
+    }
     
+    override func prepareForInterfaceBuilder() {
+        setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
+    }
 }

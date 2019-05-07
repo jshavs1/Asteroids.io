@@ -15,13 +15,23 @@ class GameViewController: UIViewController, GameSceneDelegate {
     @IBOutlet weak var movementJoystick: Joystick!
     @IBOutlet weak var fireJoystick: Joystick!
     @IBOutlet weak var pingLabel: UILabel!
+    @IBOutlet weak var activityView: UIView!
+    @IBOutlet weak var activityLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var gameOverView: UIView!
+    @IBOutlet weak var gameOverLabel: UILabel!
+    
     var myScene: GameScene!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        GameManager.onUpdate += self.onUpdate
         SocketIOManager.default.onLatency += self.onLatency
+        SocketIOManager.default.onConnect += self.onConnect
+        SocketIOManager.default.onDisconnect += self.onDisconnect
+        SocketIOManager.default.onStart += self.onStart
+        
+        activityIndicator.startAnimating()
 
 
         if let view = self.view as! SKView? {
@@ -34,11 +44,15 @@ class GameViewController: UIViewController, GameSceneDelegate {
                 scene.scaleMode = .aspectFit
                 view.presentScene(scene)
             }
-
-            view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (SocketIOManager.default._socket.status == .notConnected || SocketIOManager.default._socket.status == .disconnected) {
+            presentMenu()
+        }
+        activityView.isHidden = false
+        activityLabel.text = "Connecting to server."
     }
 
     override var shouldAutorotate: Bool {
@@ -70,25 +84,41 @@ class GameViewController: UIViewController, GameSceneDelegate {
         SocketIOManager.default.ping()
     }
     
-    func gameOver(loser: String) {
-        //let title = Player.local!.owner == loser ? "You lost" : "You won!"
-        //let messege = Player.local!.owner == loser ? "Better luck next time!" : "Congratulations!"
-        //let ac = UIAlertController(title: title, message: messege, preferredStyle: .alert)
-        //ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+    func onConnect(_: Void) {
+        activityLabel.text = "Searching for game."
+    }
+    
+    func onStart(_: Void) {
+        activityView.isHidden = true
+        GameManager.onUpdate += onUpdate
+    }
+    
+    func onDisconnect(_: Void) {
+        activityView.isHidden = true
+        gameOverView.isHidden = true
         
-        //present(ac, animated: true, completion: nil)
-        let size = CGSize(width: sceneWidth, height: sceneHeight)
-        let skView = view as! SKView
-        if (Player.local!.owner == loser){
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            let gameOverScene = GameOverScene(size: size, won: false)
-            skView.presentScene(gameOverScene, transition: reveal)
-            
-        } else {
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            let gameOverScene = GameOverScene(size: size, won: true)
-            skView.presentScene(gameOverScene, transition: reveal)
-            
+        GameManager.stop()
+        presentMenu()
+    }
+    
+    @IBAction func menuPressed(_ sender: Any) {
+        SocketIOManager.default.disconnect()
+    }
+    
+    func gameOver(loser: String) {
+        gameOverView.isHidden = false
+        if (loser == SocketIOManager.default._socket.sid) {
+            gameOverLabel.text = "Oof. Better luck next time."
         }
+        else {
+            gameOverLabel.text = "Winner winner chicken dinner!"
+        }
+    }
+    
+    func presentMenu() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true, completion: nil)
     }
 }
