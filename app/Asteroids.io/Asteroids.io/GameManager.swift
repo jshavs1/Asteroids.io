@@ -147,13 +147,18 @@ class GameManager {
     }
     func hit(hit: Hit) {
         if (isOver) { return }
-        guard let nObjA = objects[hit.A], let nObjB = objects[hit.B] else {return}
+        
+        guard let nObjB = objects[hit.B] else {return}
         
         switch hit.typeB {
         case .player:
             if (hit.typeA == .asteroid) {
                 let player = nObjB as! Player
                 player.stun()
+            }
+            if (hit.typeA == .laser) {
+                let player = nObjB as! Player
+                player.hit()
             }
         default:
             break

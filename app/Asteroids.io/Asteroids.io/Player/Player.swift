@@ -21,6 +21,7 @@ class Player: NetworkObject {
     var myAngle: CGFloat = 0.0
     
     var isStunned: Bool = false
+    var isInvulnrable: Bool = false
     var canShoot: Bool {
         get { return currentCooldown <= 0 }
     }
@@ -70,9 +71,18 @@ class Player: NetworkObject {
     func move(x: CGFloat, y: CGFloat) {
         guard !isStunned else { return }
         
+        if CGPoint(x: x, y: y).length() > 0.1 {
+            ship.smoke.particleBirthRate = 40
+        }
+        else {
+            ship.smoke.particleBirthRate = 0
+        }
+        
         let x = x * speed * CGFloat(deltaTime)
         let y = y * speed * CGFloat(deltaTime)
         let pos = CGPoint(x: transform.x + x, y: transform.y + y)
+        
+        
         
         transform.position = pos
         
@@ -103,6 +113,15 @@ class Player: NetworkObject {
         isStunned = true
         ship.run(stun) {
             self.isStunned = false
+        }
+    }
+    
+    func hit() {
+        print("here")
+        let hit = SKAction(named: "Hit")!
+        isInvulnrable = true
+        ship.run(hit) {
+            self.isInvulnrable = false
         }
     }
     

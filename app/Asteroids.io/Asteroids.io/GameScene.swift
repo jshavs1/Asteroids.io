@@ -110,7 +110,10 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         switch nodeA.physicsBody!.categoryBitMask {
         case PhysicsCategory.playerProjectile:
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.enemy) {
-                NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
+                let enemy = nObjB as! Player
+                if (!enemy.isInvulnrable) {
+                    NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
+                }
             }
             break
         case PhysicsCategory.player:
