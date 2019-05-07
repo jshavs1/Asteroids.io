@@ -37,12 +37,14 @@ class Player: NetworkObject {
         // Selects which sprite to use for the spaceships
         if isMine {
             ship = Spaceship(imageNamed: "player")
+            ship.setScale(0.5)
             ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
             ship.physicsBody?.categoryBitMask = PhysicsCategory.player
             ship.physicsBody?.contactTestBitMask = PhysicsCategory.enemyProjectile | PhysicsCategory.asteroid
             
         } else {
             ship = Spaceship(imageNamed: "enemy")
+            ship.setScale(0.5)
             ship.physicsBody = SKPhysicsBody(circleOfRadius: ship.size.height / 2)
             ship.physicsBody?.categoryBitMask = PhysicsCategory.enemy
             ship.physicsBody?.contactTestBitMask = PhysicsCategory.playerProjectile
