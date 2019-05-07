@@ -140,6 +140,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
                 let enemy = nObjB as! Player
                 if (!enemy.isInvulnrable) {
                     NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
+                    self.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
                 }
             }
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
@@ -159,6 +160,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         case PhysicsCategory.player:
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
                 NetworkManager.hit(hit: Hit(A: nObjB.id, B: nObjA.id, typeA: .asteroid, typeB: .player))
+                self.run(SKAction.playSoundFileNamed("exp1", waitForCompletion: false))
             }
         default:
             break

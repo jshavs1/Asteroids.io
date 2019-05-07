@@ -50,6 +50,7 @@
 		ECD7A1BC22822E6F0059E75B /* music.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1B922822E6E0059E75B /* music.wav */; };
 		ECD7A1BD22822E6F0059E75B /* laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1BA22822E6E0059E75B /* laser.wav */; };
 		ECD7A1BE22822E6F0059E75B /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1BB22822E6E0059E75B /* explosion.wav */; };
+		ECD7A1C02282377D0059E75B /* exp1.wav in Resources */ = {isa = PBXBuildFile; fileRef = ECD7A1BF2282377C0059E75B /* exp1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -122,6 +123,7 @@
 		ECD7A1B922822E6E0059E75B /* music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = music.wav; sourceTree = "<group>"; };
 		ECD7A1BA22822E6E0059E75B /* laser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser.wav; sourceTree = "<group>"; };
 		ECD7A1BB22822E6E0059E75B /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
+		ECD7A1BF2282377C0059E75B /* exp1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = exp1.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 			children = (
 				6F13302E226101A60097885B /* Starscream.framework.dSYM */,
 				ECD7A1BB22822E6E0059E75B /* explosion.wav */,
+				ECD7A1BF2282377C0059E75B /* exp1.wav */,
 				ECD7A1BA22822E6E0059E75B /* laser.wav */,
 				ECD7A1B922822E6E0059E75B /* music.wav */,
 				6F13302C2261019D0097885B /* SocketIO.framework.dSYM */,
@@ -351,6 +354,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD7A1C02282377D0059E75B /* exp1.wav in Resources */,
 				ECD7A1BE22822E6F0059E75B /* explosion.wav in Resources */,
 				6F3089F922601D4200877AFB /* Main.storyboard in Resources */,
 				6F1BE65422813C5F00BBD68D /* SmokeParticle.sks in Resources */,
