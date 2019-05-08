@@ -55,17 +55,17 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="phc-FF-84P" userLabel="ActivityView" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
-                                <rect key="frame" x="348" y="107" width="200" height="200"/>
+                                <rect key="frame" x="373" y="132" width="150" height="150"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3CX-5b-6Cc">
-                                        <rect key="frame" x="75" y="75" width="50" height="50"/>
+                                        <rect key="frame" x="50" y="30" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="hqp-hi-IEq"/>
                                             <constraint firstAttribute="height" constant="50" id="jip-5Y-Yv7"/>
                                         </constraints>
                                     </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for game..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHF-rd-pcm">
-                                        <rect key="frame" x="18.5" y="154.5" width="163.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for game..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHF-rd-pcm">
+                                        <rect key="frame" x="5" y="79.5" width="140" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -74,11 +74,13 @@
                                 <color key="backgroundColor" white="0.39680543664383561" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="mHF-rd-pcm" firstAttribute="centerX" secondItem="phc-FF-84P" secondAttribute="centerX" id="1ZO-XB-r7U"/>
-                                    <constraint firstAttribute="width" constant="200" id="A6u-vC-ELa"/>
-                                    <constraint firstAttribute="bottom" secondItem="mHF-rd-pcm" secondAttribute="bottom" constant="25" id="AzI-73-Lex"/>
-                                    <constraint firstItem="3CX-5b-6Cc" firstAttribute="centerY" secondItem="phc-FF-84P" secondAttribute="centerY" id="DUv-xN-oUr"/>
+                                    <constraint firstAttribute="width" constant="150" id="A6u-vC-ELa"/>
+                                    <constraint firstItem="3CX-5b-6Cc" firstAttribute="centerY" secondItem="phc-FF-84P" secondAttribute="centerY" constant="-20" id="DUv-xN-oUr"/>
                                     <constraint firstItem="3CX-5b-6Cc" firstAttribute="centerX" secondItem="phc-FF-84P" secondAttribute="centerX" id="UuF-vF-oot"/>
-                                    <constraint firstAttribute="height" constant="200" id="lGe-rq-gdL"/>
+                                    <constraint firstAttribute="trailing" secondItem="mHF-rd-pcm" secondAttribute="trailing" constant="5" id="buj-Da-1FD"/>
+                                    <constraint firstItem="mHF-rd-pcm" firstAttribute="leading" secondItem="phc-FF-84P" secondAttribute="leading" constant="5" id="fpX-Yt-7xm"/>
+                                    <constraint firstAttribute="height" constant="150" id="lGe-rq-gdL"/>
+                                    <constraint firstItem="mHF-rd-pcm" firstAttribute="centerY" secondItem="phc-FF-84P" secondAttribute="centerY" constant="25" id="qcu-W8-dZg"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -87,36 +89,37 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S8o-qh-CVh" userLabel="GameOverView" customClass="DesignableView" customModule="Asteroids_io" customModuleProvider="target">
-                                <rect key="frame" x="348" y="107" width="200" height="200"/>
+                                <rect key="frame" x="323" y="82" width="250" height="250"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="fvE-cS-K1c">
-                                        <rect key="frame" x="25" y="25" width="150" height="150"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winner winner chicken dinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfa-FK-aCj" userLabel="Label">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="49.5"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoM-i3-n2G" customClass="DesignableButton" customModule="Asteroids_io" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="99.5" width="150" height="50.5"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                                <state key="normal" title="Menu"/>
-                                                <connections>
-                                                    <action selector="menuPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="rhm-4T-eoT"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winner winner chicken dinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfa-FK-aCj" userLabel="Label">
+                                        <rect key="frame" x="5" y="38.5" width="240" height="73"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="28"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoM-i3-n2G" customClass="DesignableButton" customModule="Asteroids_io" customModuleProvider="target">
+                                        <rect key="frame" x="37.5" y="150" width="175" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="qoM-i3-n2G" secondAttribute="height" multiplier="7:2" id="HDo-w6-L2p"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Menu"/>
+                                        <connections>
+                                            <action selector="menuPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="rhm-4T-eoT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="height" secondItem="S8o-qh-CVh" secondAttribute="height" constant="-50" id="0uW-XD-pbb"/>
-                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="centerY" secondItem="S8o-qh-CVh" secondAttribute="centerY" id="Dmu-O5-rei"/>
-                                    <constraint firstAttribute="height" constant="200" id="L7Z-8F-IRD"/>
-                                    <constraint firstAttribute="width" constant="200" id="Z2O-nu-pGq"/>
-                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="centerX" secondItem="S8o-qh-CVh" secondAttribute="centerX" id="b97-lE-qch"/>
-                                    <constraint firstItem="fvE-cS-K1c" firstAttribute="width" secondItem="S8o-qh-CVh" secondAttribute="width" constant="-50" id="h8p-vJ-NnU"/>
+                                    <constraint firstItem="Nfa-FK-aCj" firstAttribute="leading" secondItem="S8o-qh-CVh" secondAttribute="leading" constant="5" id="4Jw-wq-Abb"/>
+                                    <constraint firstItem="qoM-i3-n2G" firstAttribute="centerY" secondItem="S8o-qh-CVh" secondAttribute="centerY" constant="50" id="7qT-vv-NRf"/>
+                                    <constraint firstItem="Nfa-FK-aCj" firstAttribute="centerX" secondItem="S8o-qh-CVh" secondAttribute="centerX" id="GGu-r3-9ax"/>
+                                    <constraint firstItem="qoM-i3-n2G" firstAttribute="width" secondItem="S8o-qh-CVh" secondAttribute="width" multiplier="0.7" id="HaD-4y-PLl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nfa-FK-aCj" secondAttribute="trailing" constant="5" id="Jpk-Ni-PPy"/>
+                                    <constraint firstItem="Nfa-FK-aCj" firstAttribute="centerY" secondItem="S8o-qh-CVh" secondAttribute="centerY" constant="-50" id="KSM-8M-h1A"/>
+                                    <constraint firstAttribute="height" constant="250" id="L7Z-8F-IRD"/>
+                                    <constraint firstAttribute="width" constant="250" id="Z2O-nu-pGq"/>
+                                    <constraint firstItem="qoM-i3-n2G" firstAttribute="centerX" secondItem="S8o-qh-CVh" secondAttribute="centerX" id="hhC-qK-sjC"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -152,7 +155,7 @@
                         <outlet property="gameOverView" destination="S8o-qh-CVh" id="Ssa-xY-4Wx"/>
                         <outlet property="movementJoystick" destination="ECx-iL-RbM" id="kdX-gi-46e"/>
                         <outlet property="pingLabel" destination="ijQ-nU-8DV" id="pFQ-yp-6vh"/>
-                        <segue destination="APF-6b-7q0" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="tiX-Uz-DtL"/>
+                        <segue destination="APF-6b-7q0" kind="presentation" identifier="MenuSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="tiX-Uz-DtL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -167,7 +170,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3XV-Hx-TNd">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3XV-Hx-TNd">
                                 <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -175,7 +178,7 @@
                                 <rect key="frame" x="323" y="82" width="250" height="250"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Asteroids.io" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3z0-eA-yvc">
-                                        <rect key="frame" x="39" y="50" width="172" height="42"/>
+                                        <rect key="frame" x="39" y="54" width="172" height="42"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="32"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -200,10 +203,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="HHo-FI-U4S" firstAttribute="centerY" secondItem="g8a-Ec-ika" secondAttribute="centerY" constant="50" id="5Pi-ht-gIh"/>
                                     <constraint firstItem="HHo-FI-U4S" firstAttribute="centerX" secondItem="g8a-Ec-ika" secondAttribute="centerX" id="5dj-iA-jLT"/>
-                                    <constraint firstItem="3z0-eA-yvc" firstAttribute="top" secondItem="g8a-Ec-ika" secondAttribute="top" constant="50" id="CeS-83-vZJ"/>
                                     <constraint firstItem="HHo-FI-U4S" firstAttribute="width" secondItem="g8a-Ec-ika" secondAttribute="width" multiplier="0.7" id="M6x-PD-w2r"/>
-                                    <constraint firstAttribute="bottom" secondItem="HHo-FI-U4S" secondAttribute="bottom" constant="50" id="ajt-pf-rIK"/>
+                                    <constraint firstItem="3z0-eA-yvc" firstAttribute="centerY" secondItem="g8a-Ec-ika" secondAttribute="centerY" constant="-50" id="Pbd-mG-0q8"/>
                                     <constraint firstItem="3z0-eA-yvc" firstAttribute="centerX" secondItem="g8a-Ec-ika" secondAttribute="centerX" id="ddc-hv-4om"/>
                                     <constraint firstAttribute="width" constant="250" id="vT6-Hf-VKo"/>
                                     <constraint firstAttribute="height" constant="250" id="zN7-VU-Pbb"/>

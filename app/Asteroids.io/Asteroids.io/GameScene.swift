@@ -38,6 +38,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         GameManager.delegate = self
+        SocketIOManager.default.onStart += onStart
         
         playerHealthBar = (childNode(withName: "playerHealthBar") as! HealthBar)
         enemyHealthBar = (childNode(withName: "enemyHealthBar") as! HealthBar)
@@ -48,6 +49,11 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         background.size.height = self.size.height
         addChild(background)
         self.bgMusic?.play()
+    }
+    
+    func resetHealthBars() {
+        playerHealthBar.health = 1
+        enemyHealthBar.health = 1
     }
     
     
@@ -69,10 +75,11 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         case .player:
             let player = object as! Player
             player.ship.name = player.id
+                        
             if (player.isMine) {
                 Player.local = player
             }
-
+            
             player.ship.zPosition = 300
             player.ship.physicsBody?.usesPreciseCollisionDetection = true
             player.ship.smoke.targetNode = self
@@ -102,7 +109,6 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     }
     
     func gameOver(loser: String) {
-        self.bgMusic?.stop()
         gameSceneDelegate?.gameOver(loser: loser)
     }
     
@@ -126,6 +132,10 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func onStart(_: Void) {
+        resetHealthBars()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {

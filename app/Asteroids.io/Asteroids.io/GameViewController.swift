@@ -21,7 +21,7 @@ class GameViewController: UIViewController, GameSceneDelegate {
     @IBOutlet weak var gameOverView: UIView!
     @IBOutlet weak var gameOverLabel: UILabel!
     
-    var myScene: GameScene!
+    var myScene: GameScene?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,8 @@ class GameViewController: UIViewController, GameSceneDelegate {
         SocketIOManager.default.onStart += self.onStart
         
         activityIndicator.startAnimating()
+        
+        GameManager.onUpdate += onUpdate
 
 
         if let view = self.view as! SKView? {
@@ -51,8 +53,14 @@ class GameViewController: UIViewController, GameSceneDelegate {
         if (SocketIOManager.default._socket.status == .notConnected || SocketIOManager.default._socket.status == .disconnected) {
             presentMenu()
         }
-        activityView.isHidden = false
-        activityLabel.text = "Connecting to server."
+        
+        DispatchQueue.main.async {
+            self.activityView.isHidden = false
+            self.activityLabel.text = "Connecting to server"
+            if let myScene = self.myScene {
+                myScene.resetHealthBars()
+            }
+        }
     }
 
     override var shouldAutorotate: Bool {
@@ -85,17 +93,20 @@ class GameViewController: UIViewController, GameSceneDelegate {
     }
     
     func onConnect(_: Void) {
-        activityLabel.text = "Searching for game."
+        activityLabel.text = "Searching for game"
     }
     
     func onStart(_: Void) {
-        activityView.isHidden = true
-        GameManager.onUpdate += onUpdate
+        DispatchQueue.main.async {
+            self.activityView.isHidden = true
+        }
     }
     
     func onDisconnect(_: Void) {
-        activityView.isHidden = true
-        gameOverView.isHidden = true
+        DispatchQueue.main.async {
+            self.activityView.isHidden = false
+            self.gameOverView.isHidden = true
+        }
         
         GameManager.stop()
         presentMenu()
@@ -106,12 +117,14 @@ class GameViewController: UIViewController, GameSceneDelegate {
     }
     
     func gameOver(loser: String) {
-        gameOverView.isHidden = false
-        if (loser == SocketIOManager.default._socket.sid) {
-            gameOverLabel.text = "Oof. Better luck next time."
-        }
-        else {
-            gameOverLabel.text = "Winner winner chicken dinner!"
+        DispatchQueue.main.async {
+            self.gameOverView.isHidden = false
+            if (loser == SocketIOManager.default._socket.sid) {
+                self.gameOverLabel.text = "Oof. Better luck next time"
+            }
+            else {
+                self.gameOverLabel.text = "Winner winner chicken dinner!"
+            }
         }
     }
     

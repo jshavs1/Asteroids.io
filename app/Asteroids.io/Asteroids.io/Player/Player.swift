@@ -12,18 +12,19 @@ import SpriteKit
 
 class Player: NetworkObject {
     static var local: Player?
+    static let health: Int = 10
+    
     let speed: CGFloat = 500
     let cooldown: CGFloat = 0.3
-    let health: Int = 10
     
-    var currentHealth: Int {
+    var currentHealth: Int! {
         didSet {
             let gameScene = self.node!.scene as! GameScene
             if (isMine) {
-                gameScene.playerHealthBar.health = CGFloat(currentHealth) / CGFloat(health)
+                gameScene.playerHealthBar.health = CGFloat(currentHealth) / CGFloat(Player.health)
             }
             else {
-                gameScene.enemyHealthBar.health = CGFloat(currentHealth) / CGFloat(health)
+                gameScene.enemyHealthBar.health = CGFloat(currentHealth) / CGFloat(Player.health)
             }
         }
     }
@@ -44,9 +45,9 @@ class Player: NetworkObject {
     }
     
     override init(owner: String, id: String, transform: NetworkTransform) {
-        self.currentHealth = health
         super.init(owner: owner, id: id, transform: transform)
         
+        self.currentHealth = Player.health
         // Selects which sprite to use for the spaceships
         if isMine {
             ship = Spaceship(imageNamed: "player")

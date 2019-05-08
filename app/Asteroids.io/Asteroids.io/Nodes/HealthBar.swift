@@ -13,7 +13,7 @@ class HealthBar: SKSpriteNode {
     
     var health: CGFloat {
         didSet {
-            xScale = self.health
+            xScale = max(self.health, 0)
         }
     }
     

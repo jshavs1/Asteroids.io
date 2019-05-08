@@ -8,6 +8,7 @@ module.exports = class Room {
         this.id = uuid();
         this.players = {};
         this.masterClient = "";
+        this.closed = false;
         this.simulation = new GameSimulation(this);
     }
 
@@ -47,6 +48,8 @@ module.exports = class Room {
     }
 
     startGame() {
+        this.closed = true;
+
         var startTime = Date.now();
         startTime += 5000;
 
@@ -62,7 +65,7 @@ module.exports = class Room {
     }
 
     get isOpen() {
-        return Object.keys(this.players).length < config.roomSize;
+        return (Object.keys(this.players).length < config.roomSize) && !this.closed;
     }
 
     get isEmpty() {

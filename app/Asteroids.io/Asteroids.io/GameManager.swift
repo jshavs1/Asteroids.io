@@ -38,24 +38,26 @@ class GameManager {
         }
     }
     
-    var loop: Timer!
     public var frame: Int
     private var objects: [String : NetworkObject]
-    var isOver: Bool
     var lastUpdateTime: Double
+    var startTimer: Timer?
+    var loopTimer: Timer?
+    var isOver: Bool
     
     init() {
         self.frame = 0
         self.objects = [String : NetworkObject]()
         self._onUpdate = Event()
-        self.isOver = false
         self.lastUpdateTime = 0
+        self.isOver = false
     }
     
     static func synchronizedStart(at: UInt64) {
         GameManager.default.synchronizedStart(at: at)
     }
     private func synchronizedStart(at: UInt64) {
+        self.isOver = false
         let currentTime = Date().timeIntervalSince1970
         let currentTimeMilli = UInt64(currentTime * 1000)
         
@@ -65,7 +67,7 @@ class GameManager {
         
         print("Starting game in \(timeUntilStart / 1000)")
         
-        Timer.scheduledTimer(withTimeInterval: TimeInterval(timeUntilStart / 1000), repeats: false) { (_) in
+        self.startTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(timeUntilStart / 1000), repeats: false) { (_) in
             self.start()
         }
     }
@@ -73,23 +75,35 @@ class GameManager {
     private func start() {
         print("Starting update loop")
         lastUpdateTime = Date().timeIntervalSince1970
-        loop = Timer.scheduledTimer(withTimeInterval: deltaTime, repeats: true, block: { (_) in
+        self.loopTimer = Timer.scheduledTimer(withTimeInterval: deltaTime, repeats: true, block: { (_) in
             self.update()
             self.frame += 1;
         })
+        self.startTimer = nil
     }
     
     static func stop() {
         GameManager.default.stop()
     }
     func stop() {
-        loop.invalidate()
+        if let loopTimer = loopTimer {
+            loopTimer.invalidate()
+            self.loopTimer = nil
+        }
+        if let startTimer = startTimer {
+            startTimer.invalidate()
+            self.startTimer = nil
+        }
+        
+        for object in objects.values {
+            GameManager.destroy(id: object.id)
+        }
+        Player.local = nil
+        
         self.frame = 0
-        GameManager._default = nil
     }
     
     func update() {
-        if (isOver) {return}
         let newUpdateTime = Date().timeIntervalSince1970
         deltaUpdateTime = newUpdateTime - lastUpdateTime
         lastUpdateTime = newUpdateTime
@@ -105,7 +119,6 @@ class GameManager {
         GameManager.default.instantiate(response: response)
     }
     func instantiate(response: InstantiateResponse) {
-        if (isOver) {return}
         var object: NetworkObject!
         switch response.type {
         case .player:
@@ -150,17 +163,15 @@ class GameManager {
         GameManager.default.gameOver(loser: loser)
     }
     func gameOver(loser: String) {
-        if (isOver) { return }
+        guard !isOver else {return}
         isOver = true
         GameManager.delegate?.gameOver(loser: loser)
-        stop()
     }
     
     static func hit(hit: Hit) {
         GameManager.default.hit(hit: hit)
     }
     func hit(hit: Hit) {
-        if (isOver) { return }
         
         guard let nObjB = objects[hit.B] else {return}
         
@@ -173,7 +184,7 @@ class GameManager {
             }
             if (hit.typeA == .laser) {
                 let player = nObjB as! Player
-                player.currentHealth = hit.data!["health"] as! Int
+                player.currentHealth = (hit.data!["health"] as! Int)
                 player.hit()
             }
         default:
