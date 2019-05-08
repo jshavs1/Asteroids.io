@@ -12,9 +12,6 @@ import AVFoundation
 
 class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
-    var isPlayerThere = false
-    var didTap = false
-    var touchLocation: CGPoint = CGPoint(x: 0.0,y: 0.0)
     var gameSceneDelegate: GameSceneDelegate?
     
     var playerHealthBar: HealthBar!
@@ -122,12 +119,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
     
     // This notices when the current player fires their bullet
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first, Player.local != nil else {
-            return
-        }
         
-        touchLocation = touch.location(in: self)
-        didTap = true
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -150,7 +142,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
                 let enemy = nObjB as! Player
                 if (!enemy.isInvulnrable) {
                     NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
-                    self.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
+                    self.run(SKAction.playSoundFileNamed("exp1", waitForCompletion: false))
                 }
             }
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
@@ -170,7 +162,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         case PhysicsCategory.player:
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
                 NetworkManager.hit(hit: Hit(A: nObjB.id, B: nObjA.id, typeA: .asteroid, typeB: .player))
-                self.run(SKAction.playSoundFileNamed("exp1", waitForCompletion: false))
+                self.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
             }
         default:
             break
