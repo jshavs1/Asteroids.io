@@ -38,7 +38,6 @@ class GameViewController: UIViewController, GameSceneDelegate {
 
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-
             if let scene = GameScene(fileNamed: "GameScene") {
                 myScene = scene
                 scene.size = CGSize(width: sceneWidth, height: sceneHeight)

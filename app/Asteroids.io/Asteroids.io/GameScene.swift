@@ -44,6 +44,7 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         background.zPosition = -500
         background.size.width = self.size.width
         background.size.height = self.size.height
+        background.lightingBitMask = PhysicsCategory.background
         addChild(background)
         self.bgMusic?.play()
     }
@@ -142,7 +143,6 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
                 let enemy = nObjB as! Player
                 if (!enemy.isInvulnrable) {
                     NetworkManager.hit(hit: Hit(A: nObjA.id, B: nObjB.id, typeA: .laser, typeB: .player))
-                    self.run(SKAction.playSoundFileNamed("exp1", waitForCompletion: false))
                 }
             }
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
@@ -162,7 +162,6 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         case PhysicsCategory.player:
             if (nodeB.physicsBody!.categoryBitMask == PhysicsCategory.asteroid) {
                 NetworkManager.hit(hit: Hit(A: nObjB.id, B: nObjA.id, typeA: .asteroid, typeB: .player))
-                self.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
             }
         default:
             break

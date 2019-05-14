@@ -180,12 +180,13 @@ class GameManager {
             if (hit.typeA == .asteroid) {
                 let player = nObjB as! Player
                 player.stun()
-                //self.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
+                player.node!.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
             }
             if (hit.typeA == .laser) {
                 let player = nObjB as! Player
                 player.currentHealth = (hit.data!["health"] as! Int)
                 player.hit()
+                player.node!.run(SKAction.playSoundFileNamed("exp1", waitForCompletion: false))
             }
         default:
             break

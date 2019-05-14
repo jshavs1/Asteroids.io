@@ -20,6 +20,8 @@ class Spaceship: SKSpriteNode {
         self.smoke.zRotation = 180 * CGFloat(DegreesToRadians)
         self.smoke.particleBirthRate = 50
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
+        self.shadowedBitMask = 0
+        self.shadowCastBitMask = 0
         addChild(self.smoke)
     }
     

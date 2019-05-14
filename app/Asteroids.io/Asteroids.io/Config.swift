@@ -34,6 +34,7 @@ struct PhysicsCategory {
     static let playerProjectile     : UInt32 = 0b100
     static let enemyProjectile      : UInt32 = 0b1000
     static let asteroid             : UInt32 = 0b10000
+    static let background           : UInt32 = 0b100000
 }
 
 let DegreesToRadians =  CFloat(Double.pi/180)
