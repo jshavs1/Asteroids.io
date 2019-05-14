@@ -14,8 +14,8 @@ var deltaTimeSeconds = deltaTime / 1000;
 var serverFrameBuffer = 2;
 
 //Asteroid config
-var minAsteroidInterval = 1 * 200;
-var maxAsteroidInterval = 2 * 1000;
+var minAsteroidInterval = 0.2 * 1000;
+var maxAsteroidInterval = 1 * 1000;
 
 //Map config
 var mapWidth = 1950;
