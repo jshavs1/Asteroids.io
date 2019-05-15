@@ -40,12 +40,10 @@ class GameScene: SKScene, GameManagerDelegate, SKPhysicsContactDelegate {
         playerHealthBar = (childNode(withName: "playerHealthBar") as! HealthBar)
         enemyHealthBar = (childNode(withName: "enemyHealthBar") as! HealthBar)
         
-        let background = SKSpriteNode(imageNamed: "sky2")
+        let background = Background()
         background.zPosition = -500
-        background.size.width = self.size.width
-        background.size.height = self.size.height
-        background.lightingBitMask = PhysicsCategory.background
         addChild(background)
+        background.animate(target: 0)
         self.bgMusic?.play()
     }
     
